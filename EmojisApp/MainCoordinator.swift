@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class MainCoordinator: Coordinator, EmojiPresenter {
+class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
     
     var avatarStorage: AvatarStorage?
     var navigationController: UINavigationController?
@@ -42,6 +42,7 @@ class MainCoordinator: Coordinator, EmojiPresenter {
 }
 
 extension MainCoordinator: EmojiStorageDelegate {
+
     func emojiListUpdated() {
         navigationController?.viewControllers.forEach {
             ($0 as? EmojiPresenter)?.emojiListUpdated()

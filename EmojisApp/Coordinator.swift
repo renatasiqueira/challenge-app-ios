@@ -28,3 +28,5 @@ protocol EmojiStorageDelegate: AnyObject {
 protocol AvatarStorageDelegate: AnyObject {
     func avatarListUpdated()
 }
+
+
