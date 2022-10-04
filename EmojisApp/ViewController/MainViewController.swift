@@ -2,9 +2,45 @@ import UIKit
 import Alamofire
 
 
-class MainViewController: UIViewController, Coordinating {
+class BaseGenericView: UIView {
+    required init() {
+        super.init(frame: .zero)
+        setupView()
+    }
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        fatalError()
+    }
+    
+    func setupView() {}
+}
+
+class BaseGenericViewController<View: BaseGenericView>: UIViewController {
+
+    var genericView: View {
+        view as! View
+    }
+    
+    override func loadView() {
+        view = View()
+    }
+}
+
+    class MainView: BaseGenericView {
+    func businessLogicOfMain() {}
+}
+
+    extension Array {
+    func item(at: Int) -> Element? {
+    count > at ? self[at] : nil
+}
+}
+
+class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating, EmojiPresenter {
+//class MainViewController: UIViewController, Coordinating {
     var coordinator: Coordinator?
+    var emojiStorage: EmojiStorage?
     
     private var verticalStackView = UIStackView()
     private var horizontalSearchStackView = UIStackView()
@@ -47,7 +83,7 @@ class MainViewController: UIViewController, Coordinating {
         
         
         
-        super.init(nibName: nil, bundle: nil)
+    super.init(nibName: nil, bundle: nil)
     }
     
     required init(coder: NSCoder) {
@@ -73,31 +109,24 @@ class MainViewController: UIViewController, Coordinating {
         //imageContainerView.backgroundColor = .white
                 
         verticalStackView.axis = .vertical
-        //verticalStackView.spacing = 20
-        
+               
         horizontalSearchStackView.axis = .horizontal
-        //horizontalSearchStackView.spacing = 20
-        
+               
         emojisListButton.setTitle("Emojis List", for: .normal)
-        //emojisListButton.configuration = .filled()
-        //emojisListButton.configuration?.baseBackgroundColor = .lightGray
         
         randomEmojisButton.setTitle("Random Emojis", for: .normal)
-        //randomEmojisButton.configuration = .filled()
-        //randomEmojisButton.configuration?.baseBackgroundColor = .lightGray
-        
+                
         avatarListButton.setTitle("Avatars List", for: .normal)
-        //avatarListButton.configuration = .filled()
-        //avatarListButton.configuration?.baseBackgroundColor = .lightGray
-        
+               
         appleReposButton.setTitle("Apple Repos", for: .normal)
-        //appleReposButton.configuration = .filled()
-        //appleReposButton.configuration?.baseBackgroundColor = .lightGray
-        
+              
         searchButton.setTitle("Search", for: .normal)
-        //searchButton.configuration = .filled()
-        //cd ..searchButton.configuration?.baseBackgroundColor = .lightGray
         
+        let buttonArray = [randomEmojisButton, emojisListButton, searchButton, avatarListButton, appleReposButton]
+                buttonArray.forEach {
+                    $0.configuration = .filled()
+                }
+                
         self.navigationController?.navigationBar.tintColor = .white
         
         emojisListButton.addTarget(self, action: #selector(didTapEmojisList), for: .touchUpInside)
@@ -155,18 +184,6 @@ class MainViewController: UIViewController, Coordinating {
         coordinator?.eventOccurred(with: .emojisListButton)
     }
     
-    @objc func didTapRandomEmojis(_ sender:UIButton) {
-        //coordinator?.eventOccurred(with: .randomEmojisButton)
-        let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
-                
-        guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
-
-        urlEmojiImage = emoji.url
-        
-        let url = URL(string: urlEmojiImage)!
-        downloadImage(from: url)
-        }
-    
     @objc func didTapAvatarList(_ sender:UIButton) {
         coordinator?.eventOccurred(with: .avatarListButton)
     }
@@ -175,18 +192,28 @@ class MainViewController: UIViewController, Coordinating {
         coordinator?.eventOccurred(with: .appleReposButton)
     }
     
+    @objc func didTapRandomEmojis() {
+        //coordinator?.eventOccurred(with: .randomEmojisButton)
+        let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
+                
+        guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
+                
+        let url = emoji.emojiUrl
+        downloadImage(from: url)
+    
+        }
+    
     //Create a method with a completion handler to get the image data from your url
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
+            URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+        }
+
     
     //Create a method to download the image (start the task)
     func downloadImage(from url: URL) {
-        print("Download Started")
         getData(from: url) { data, response, error in
             guard let data = data, error == nil else { return }
-            print(response?.suggestedFilename ?? url.lastPathComponent)
-            print("Download Finished")
+            
             // always update the UI from the main thread
             DispatchQueue.main.async() { [weak self] in
                 self?.imageView.image = UIImage(data: data)
@@ -195,3 +222,8 @@ class MainViewController: UIViewController, Coordinating {
     }
 }
 
+extension MainViewController: EmojiStorageDelegate {
+    func emojiListUpdated() {
+        didTapRandomEmojis()
+    }
+}
