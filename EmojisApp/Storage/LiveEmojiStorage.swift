@@ -5,7 +5,7 @@ class LiveEmojiStorage: EmojiStorage {
     weak var delegate: EmojiStorageDelegate?
     
     init(){
-        
+        loadEmojis()
     
     }
     
@@ -28,20 +28,12 @@ class LiveEmojiStorage: EmojiStorage {
             }
         }
 
-        protocol EmojiPresenter: EmojiStorageDelegate {
-            var emojiStorage: EmojiStorage? { get set }
-        }
+protocol EmojiPresenter: EmojiStorageDelegate {
+    var emojiStorage: EmojiStorage? { get set }
+}
 
-        protocol EmojiStorage {
-            var delegate: EmojiStorageDelegate? { get set }
-            var emojis: [Emoji] { get set }
-        }
-        /*request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+protocol EmojiStorage {
+    var delegate: EmojiStorageDelegate? { get set }
+    var emojis: [Emoji] { get set }
+}
         
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if lrt data = data {
-                let json = try?JSONSerialization.jsonObject(with: data) as? Dictionary<String,String>
- 
-            }
-        }
-*/

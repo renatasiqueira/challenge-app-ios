@@ -1,16 +1,6 @@
 import Foundation
 import UIKit
 
-/*
- Steps to create a Collection View:
- 
- 1 - Create the Collection's layout
- 2 - Initialize the Collection
- 3 - Register the Cells
- 4 - Set the Data Source and the Delegate
- */
-
-
 
 class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     
@@ -27,9 +17,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
         setUpViews()
         addViewToSuperView()
         setUpConstraints()
-        //view.backgroundColor = .systemPink
-        //title = "Emojis List"
-
+        
     }
     
     private func setUpViews() {
@@ -97,23 +85,7 @@ extension EmojisListViewController: EmojiStorageDelegate {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EmojiCollectionViewCells else {
                 return UICollectionViewCell()
             }
-            //cell.color = colors[indexPath.row]
-            cell.backgroundColor = .black
-            
-            /*
-             let imageView: UIImageView = .init(frame: .zero)
-            //let urlString: String = mockedEmojis[indexPath.row].url
-            //let url = URL(string: urlString)!
-            
-            //downloadImage(from: url, imageView: imageView)
-            
-            cell.contentView.addSubview(imageView)
-            
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-                    
-            NSLayoutConstraint.activate([imageView.centerXAnchor.constraint(equalTo: cell.centerXAnchor),
-                                         imageView.centerYAnchor.constraint(equalTo: cell.centerYAnchor)])
-    */
+           
             let url = (emojiStorage?.emojis[indexPath.row].emojiUrl)!
             
             cell.setupCell(url: url)
@@ -141,23 +113,5 @@ extension EmojisListViewController: EmojiStorageDelegate {
         
     return CGSize(width: widthPerItem - 8, height: widthPerItem)
     }
-        
-    //Create a method with a completion handler to get the image data from your url
-    /*
-     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-    //Create a method to download the image (start the task)
-        func downloadImage(from url: URL, imageView: UIImageView) {
-    
-        getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            // always update the UI from the main thread
-            DispatchQueue.main.async() {
-                imageView.image = UIImage(data: data)
-            }
-        }
-        }
-     */
+   
 }

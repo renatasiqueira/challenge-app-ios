@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C79C38E228EEE408002FA1F3 /* AvatarApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79C38E128EEE408002FA1F3 /* AvatarApi.swift */; };
 		C79C891228E1BA3100600405 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79C891128E1BA3100600405 /* AppDelegate.swift */; };
 		C79C891428E1BA3100600405 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79C891328E1BA3100600405 /* SceneDelegate.swift */; };
 		C79C891628E1BA3100600405 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79C891528E1BA3100600405 /* MainViewController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C79C38E128EEE408002FA1F3 /* AvatarApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarApi.swift; sourceTree = "<group>"; };
 		C79C890E28E1BA3100600405 /* EmojisApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmojisApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79C891128E1BA3100600405 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C79C891328E1BA3100600405 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C79C38E328EEEF53002FA1F3 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C79C38E528EEEFE4002FA1F3 /* Service */,
+				C79C38E428EEEFDB002FA1F3 /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		C79C38E428EEEFDB002FA1F3 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		C79C38E528EEEFE4002FA1F3 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		C79C890528E1BA3100600405 = {
 			isa = PBXGroup;
 			children = (
@@ -86,7 +111,8 @@
 		C79C891028E1BA3100600405 /* EmojisApp */ = {
 			isa = PBXGroup;
 			children = (
-				C7C9F5A628EAF53D00F65BCF /* EmojiAPI */,
+				C79C38E328EEEF53002FA1F3 /* Data */,
+				C7C9F5A628EAF53D00F65BCF /* API */,
 				C79D6EE128E5B03E0055B15E /* Storage */,
 				C79D6EDE28E598160055B15E /* EmojiCollectionViewCells */,
 				C79D6EDD28E597E10055B15E /* Model */,
@@ -142,13 +168,14 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		C7C9F5A628EAF53D00F65BCF /* EmojiAPI */ = {
+		C7C9F5A628EAF53D00F65BCF /* API */ = {
 			isa = PBXGroup;
 			children = (
 				C7C9F5A728EAF5D400F65BCF /* ApiGeral.swift */,
 				C7C9F5A928EAF84700F65BCF /* EmojiApi.swift */,
+				C79C38E128EEE408002FA1F3 /* AvatarApi.swift */,
 			);
-			path = EmojiAPI;
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +258,7 @@
 				C79C893C28E351E400600405 /* MainCoordinator.swift in Sources */,
 				C79C892F28E1FA4C00600405 /* SearchButtonViewController.swift in Sources */,
 				C7C9F5A828EAF5D400F65BCF /* ApiGeral.swift in Sources */,
+				C79C38E228EEE408002FA1F3 /* AvatarApi.swift in Sources */,
 				C7C9F5AC28EC2E2300F65BCF /* Avatar.swift in Sources */,
 				C79C891628E1BA3100600405 /* MainViewController.swift in Sources */,
 				C79C892B28E1F36200600405 /* AvatarListViewController.swift in Sources */,

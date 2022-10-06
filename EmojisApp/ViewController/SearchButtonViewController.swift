@@ -1,10 +1,3 @@
-//
-//  SearchButtonViewController.swift
-//  EmojisApp
-//
-//  Created by Renata Siqueira on 26/09/2022.
-//
-
 import UIKit
 
 class SearchButtonViewController: UIViewController, Coordinating {
