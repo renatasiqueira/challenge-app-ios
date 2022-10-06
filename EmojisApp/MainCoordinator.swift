@@ -1,38 +1,61 @@
 import Foundation
 import UIKit
 
-class MainCoordinator: Coordinator {
+class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
+    
+    var avatarStorage: AvatarStorage?
     var navigationController: UINavigationController?
+    var emojiStorage: EmojiStorage?
+    
+    init(emojiStorage: EmojiStorage, avatarStorage: AvatarStorage) {
+        self.emojiStorage = emojiStorage
+        self.emojiStorage?.delegate = self
+        
+        self.avatarStorage = avatarStorage
+        self.avatarStorage?.delegate = self
+    }
     
     func eventOccurred(with type: Event) {
         switch type {
         case .emojisListButton:
-            var vc: UIViewController & Coordinating = EmojisListViewController()
+            var vc: UIViewController & Coordinating & EmojiPresenter = EmojisListViewController() 
             vc.coordinator = self
+            vc.emojiStorage = emojiStorage
             navigationController?.pushViewController(vc, animated: true)
-        case .randomEmojisButton:
-            var vc: UIViewController & Coordinating = RandomEmojisViewController()
-            vc.coordinator = self
-            navigationController?.pushViewController(vc, animated: true)
+                
         case .avatarListButton:
             var vc: UIViewController & Coordinating = AvatarListViewController()
             vc.coordinator = self
             navigationController?.pushViewController(vc, animated: true)
         case .appleReposButton:
-            var vc: UIViewController & Coordinating = AppleReposViewController()
+            var vc: UIViewController & Coordinating = AvatarListViewController()
             vc.coordinator = self
             navigationController?.pushViewController(vc, animated: true)
-        case .searchButton:
-            var vc: UIViewController & Coordinating = SearchButtonViewController()
-            vc.coordinator = self
-            navigationController?.pushViewController(vc, animated: true)
-        }
-        }
     
     func start() {
-        var vc: UIViewController & Coordinating = MainViewController()
+        var vc: UIViewController & Coordinating & EmojiPresenter = MainViewController()
         vc.coordinator = self
+        vc.emojiStorage = emojiStorage
         navigationController?.setViewControllers([vc], animated: false)
         
+    }
+}
+
+extension MainCoordinator: EmojiStorageDelegate {
+
+    func emojiListUpdated() {
+        navigationController?.viewControllers.forEach {
+            ($0 as? EmojiPresenter)?.emojiListUpdated()
+                }
+            }
+    
+        }
+        extension MainCoordinator: AvatarStorageDelegate {
+            func avatarListUpdate() {
+                navigationController?.viewControllers.forEach{
+                    ($0 as? AvatarPresenter)?.avatarListUpdate()
+                }
+            }
+        }
     }
 }

@@ -12,22 +12,15 @@ import UIKit
 
 
 
-class EmojisListViewController: UIViewController, Coordinating {
+class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     
     var coordinator: Coordinator?
-    
-    var collectionView: UICollectionView!
-    var colors: [UIColor] = [.blue, .green, .red, .yellow, .black]
-    
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    var emojiStorage: EmojiStorage?
+    lazy var collectionView: UICollectionView = {
+        let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        return v
+    }()
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,7 +28,7 @@ class EmojisListViewController: UIViewController, Coordinating {
         addViewToSuperView()
         setUpConstraints()
         //view.backgroundColor = .systemPink
-        title = "Emojis List"
+        //title = "Emojis List"
 
     }
     
@@ -59,6 +52,8 @@ class EmojisListViewController: UIViewController, Coordinating {
     }
     
     private func setUpCollectionView() {
+        view.backgroundColor = .systemPink
+        title = "Emojis List"
         // 1 - Collection's Layout
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -77,14 +72,25 @@ class EmojisListViewController: UIViewController, Coordinating {
         collectionView.dataSource = self
     }
     
-}
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
+    }
+    
+}
+extension EmojisListViewController: EmojiStorageDelegate {
+    func emojiListUpdated() {
+        collectionView.reloadData()
+    }
+}
         // Collection's Data Source
     extension EmojisListViewController: UICollectionViewDataSource {
         
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             
-            return mockedEmojis.count
+            let mockedEmojis = emojiStorage?.emojis.count ?? 0
+            return mockedEmojis
         }
 
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -94,11 +100,12 @@ class EmojisListViewController: UIViewController, Coordinating {
             //cell.color = colors[indexPath.row]
             cell.backgroundColor = .black
             
-            let imageView: UIImageView = .init(frame: .zero)
-            let urlString: String = mockedEmojis[indexPath.row].url
-            let url = URL(string: urlString)!
+            /*
+             let imageView: UIImageView = .init(frame: .zero)
+            //let urlString: String = mockedEmojis[indexPath.row].url
+            //let url = URL(string: urlString)!
             
-            downloadImage(from: url, imageView: imageView)
+            //downloadImage(from: url, imageView: imageView)
             
             cell.contentView.addSubview(imageView)
             
@@ -106,8 +113,11 @@ class EmojisListViewController: UIViewController, Coordinating {
                     
             NSLayoutConstraint.activate([imageView.centerXAnchor.constraint(equalTo: cell.centerXAnchor),
                                          imageView.centerYAnchor.constraint(equalTo: cell.centerYAnchor)])
-    
-        
+    */
+            let url = (emojiStorage?.emojis[indexPath.row].emojiUrl)!
+            
+            cell.setupCell(url: url)
+            
             return cell
         }
 }
@@ -133,7 +143,8 @@ class EmojisListViewController: UIViewController, Coordinating {
     }
         
     //Create a method with a completion handler to get the image data from your url
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+    /*
+     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
     
@@ -148,4 +159,5 @@ class EmojisListViewController: UIViewController, Coordinating {
             }
         }
         }
+     */
 }
