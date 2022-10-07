@@ -96,7 +96,6 @@
 			isa = PBXGroup;
 			children = (
 				C79C38E728EF1529002FA1F3 /* EmojisService.swift */,
-				C79C38E928EF36CD002FA1F3 /* MockedEmojiStorage.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -179,6 +178,7 @@
 			children = (
 				C79D6EE228E5B0890055B15E /* LiveEmojiStorage.swift */,
 				C7C9F5AF28EC8C0700F65BCF /* LiveAvatarStorage.swift */,
+				C79C38E928EF36CD002FA1F3 /* MockedEmojiStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
