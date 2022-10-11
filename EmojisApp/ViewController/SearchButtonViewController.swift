@@ -6,10 +6,8 @@ class SearchButtonViewController: UIViewController, Coordinating {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGreen
+        //view.backgroundColor = .systemGreen
         title = "Search"
-
-        // Do any additional setup after loading the view.
     }
 
 }

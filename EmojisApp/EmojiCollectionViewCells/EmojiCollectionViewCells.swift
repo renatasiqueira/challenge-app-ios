@@ -11,6 +11,7 @@ class EmojiCollectionViewCells: UICollectionViewCell {
         super.init(frame: .zero)
         self.contentView.addSubview(emojiImageView)
         setupConstraints()
+        //emojiImageView.backgroundColor = .black
     }
     
     required init?(coder: NSCoder) {

@@ -103,7 +103,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     
 //1 - Setup the Views
     private func setUpViews() {
-        view.backgroundColor = .appColor(name: .primary)
+        view.backgroundColor = .appColor(name: .suface)
         view.tintColor = .appColor(name: .onPrimary)
         
 

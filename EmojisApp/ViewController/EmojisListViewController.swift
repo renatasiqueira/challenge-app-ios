@@ -23,6 +23,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
         addViewToSuperView()
         setUpConstraints()
         
+        collectionView.backgroundColor = .none
     }
     
     private func setUpViews() {
@@ -45,7 +46,8 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     }
     
     private func setUpCollectionView() {
-        view.backgroundColor = .systemPink
+        view.backgroundColor = .appColor(name: .primary)
+        view.tintColor = .appColor(name: .secondary)
         title = "Emojis List"
         // 1 - Collection's Layout
         let layout = UICollectionViewFlowLayout()
@@ -79,6 +81,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
                 print("Error: \(failure)")
             }
         })
+        
     }
 }
         
