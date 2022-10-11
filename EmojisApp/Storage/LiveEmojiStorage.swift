@@ -7,10 +7,6 @@ class LiveEmojiStorage: EmojiService {
     
     private var networkManager: NetworkManager = .init()
     
-    private var liveEmojiStorage: LiveEmojiStorage?
-    
-    private var emojisViewController: EmojisListViewController?
-    
     init() {
         
     }
@@ -23,7 +19,7 @@ class LiveEmojiStorage: EmojiService {
                 print("Success: \(success)")
                 
             case .failure(let failure):
-                print("Error: \(failure)")
+               print("Error: \(failure)")
             }
         }
     }

@@ -138,10 +138,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         
         appleReposButton.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
         
-        print("Begin of code")
-        let url = URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png?v8")!
-     //   downloadImage(from: url)
-        print("End of code. The image will continue downloading in the background and it will be loaded when it ends.")
+        getRandomEmojis()
         
         
     }
@@ -194,11 +191,10 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     }
     
     @objc func getRandomEmojis() {
-        emojiService?.getEmojisList{
-                    (result: Result<[Emoji], Error>) in
+        emojiService?.getEmojisList{(result: Result<[Emoji], Error>) in
         switch result {
         case .success(let success):
-            self.emojiImage.downloaded(from: success.randomElement()!.emojiUrl)
+            self.imageView.downloaded(from: success.randomElement()!.emojiUrl)
         case .failure(let failure):
             print("Error: \(failure)")
         }

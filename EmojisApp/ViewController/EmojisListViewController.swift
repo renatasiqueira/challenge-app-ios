@@ -62,7 +62,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
         
         // 4 - Delegate & DataSource
         collectionView.delegate = self
-        collectionView.dataSource = strong
+        collectionView.dataSource = self
     }
     
 
