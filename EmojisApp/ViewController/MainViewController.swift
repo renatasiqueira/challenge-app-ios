@@ -103,11 +103,10 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     
 //1 - Setup the Views
     private func setUpViews() {
-        view.backgroundColor = .systemBlue
-        view.tintColor = .lightGray
+        view.backgroundColor = .appColor(name: .primary)
+        view.tintColor = .appColor(name: .onPrimary)
         
-        //imageView.backgroundColor = .orange
-        //imageContainerView.backgroundColor = .white
+
                 
         verticalStackView.axis = .vertical
                
@@ -128,7 +127,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
                     $0.configuration = .filled()
                 }
                 
-        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.tintColor = .appColor(name: .onPrimary)
         
         emojisListButton.addTarget(self, action: #selector(didTapEmojisList), for: .touchUpInside)
         

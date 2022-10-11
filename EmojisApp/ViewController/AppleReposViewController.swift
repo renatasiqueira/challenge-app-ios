@@ -6,7 +6,8 @@ class AppleReposViewController: UIViewController, Coordinating {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemPurple
+        view.backgroundColor = .appColor(name: .primary)
+        view.tintColor = .appColor(name: .secondary)
         title = "Apple Repos"
 
         // Do any additional setup after loading the view.
