@@ -1,21 +1,16 @@
 import UIKit
 
 
-class MockedEmojiService: EmojiService {
-   //var delegate: EmojiStorageDelegate?
-    
-    
-    private var mockedEmojis: MockedEmojisService = .init()
-    
-    //var emojis: [Emoji] = []
-    /*
-    func getRandomEmojiUrl(_ resultUrl: @escaping (URL) -> Void) {
-        emojis = mockedEmojis.emojis
-        guard let url = emojis.randomElement()?.emojiUrl else { return }
-        resultUrl(url)
-        */
-    func getEmojiList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void){
+class MockedEmojiStorage: EmojiService {
         
-        resultHandler(.success([mockedEmojis.))
+    var delegate: EmojiStorageDelegate?
+        
+    private var mockedEmojis: MockedEmojisStorage = .init()
+    
+    var emojis: [Emoji] = []
+    
+    func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
+        emojis = mockedEmojis.emoji
+        resultHandler(.success(emojis))
     }
     }

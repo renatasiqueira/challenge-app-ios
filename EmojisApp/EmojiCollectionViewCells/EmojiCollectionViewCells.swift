@@ -2,20 +2,12 @@ import UIKit
 
 
 class EmojiCollectionViewCells: UICollectionViewCell {
-    /*var color: UIColor = .white {
-     didSet {
-     backgroundColor = color
-     }
-     */
-    
+      
     private var emojiImageView: UIImageView
     var dataTask: URLSessionDataTask?
     
     override init(frame: CGRect) {
         emojiImageView = .init(frame: .zero)
-        //emojiImageView.contentMode = .scaleAspectFit
-        //emojiImageView.clipsToBounds = true
-        //sel.emojiImageView = emoji
         super.init(frame: .zero)
         self.contentView.addSubview(emojiImageView)
         setupConstraints()
@@ -25,7 +17,7 @@ class EmojiCollectionViewCells: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCell(url: URL) {
+    func setUpCell(url: URL) {
         downloadImage(from: url)
     }
     

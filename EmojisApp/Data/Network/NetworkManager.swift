@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 protocol APIProtocol {
     var url: URL { get }
@@ -15,6 +16,7 @@ enum APIError: Error {
     case unknownError
 }
 
+class NetworkManager {
 func executeNetworkCall<ResultType: Decodable>(_ call: APIProtocol, _ resultHandler: @escaping (Result<ResultType, Error>) -> Void) {
     let decoder = JSONDecoder()
     var request = URLRequest(url: call.url)
@@ -37,5 +39,18 @@ func executeNetworkCall<ResultType: Decodable>(_ call: APIProtocol, _ resultHand
 
     task.resume()
 }
+}
 
-
+func downloadImageFromURL(from url: URL, _ resultHandler: @escaping (Result<UIImage,Error>) -> Void) {
+    let task = URLSession.shared.dataTask(with: url){ data, response, error in
+        if let data = data {
+            if let image = UIImage(data: data) {
+                resultHandler(Result<UIImage, Error>.success(image))
+            }
+        } else if let error = error{
+            resultHandler(Result<UIImage, Error>.failure(error))
+            
+        }
+    }
+    task.resume()
+}

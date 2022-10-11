@@ -84,7 +84,7 @@ extension AvatarsListViewController: UICollectionViewDataSource {
 
         let url = (avatarStorage?.avatars[indexPath.row].avatarUrl)!
         
-        cell.setupCell(url: url)
+        cell.setUpCell(url: url)
         
         return cell
     }

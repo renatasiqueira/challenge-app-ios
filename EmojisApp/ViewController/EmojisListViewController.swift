@@ -5,7 +5,12 @@ import UIKit
 class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     
     var coordinator: Coordinator?
-    var emojiStorage: EmojiStorage?
+    var emojiService: EmojiService?
+    var liveEmojiStorage: LiveEmojiStorage = .init()
+    var emojisList: [Emoji] = []
+    
+    var strong = MockedDataSource()
+
     lazy var collectionView: UICollectionView = {
         let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         return v
@@ -57,61 +62,94 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
         
         // 4 - Delegate & DataSource
         collectionView.delegate = self
-        collectionView.dataSource = self
+        collectionView.dataSource = strong
     }
     
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("Emojis: \(String(describing: emojiStorage?.emojis.count))")
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        emojiService?.getEmojisList({ (result: Result<[Emoji], Error>) in
+            switch result {
+            case .success(let success):
+                self.emojisList = success
+                DispatchQueue.main.async() { [weak self] in
+                    self?.collectionView.reloadData()
+                }
+            case .failure(let failure):
+                print("Error: \(failure)")
+            }
+        })
     }
-    
 }
+        
 extension EmojisListViewController: EmojiStorageDelegate {
     func emojiListUpdated() {
         collectionView.reloadData()
     }
 }
-        // Collection's Data Source
-    extension EmojisListViewController: UICollectionViewDataSource {
-        
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            
-            let mockedEmojis = emojiStorage?.emojis.count ?? 0
-            return mockedEmojis
-        }
 
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EmojiCollectionViewCells else {
-                return UICollectionViewCell()
-            }
+        // Collection's Data Source
+extension EmojisListViewController: UICollectionViewDataSource {
+        
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        let countEmojis = emojisList.count
+        return countEmojis
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EmojiCollectionViewCells else {
+            return UICollectionViewCell()
+        }
            
-            let url = (emojiStorage?.emojis[indexPath.row].emojiUrl)!
+        let url = emojisList[indexPath.row].emojiUrl
             
-            cell.setupCell(url: url)
-            
-            return cell
+        cell.setUpCell(url: url)
+        
+        return cell
         }
 }
 
-        // - Collection's Delegate Flow Layout
-    extension EmojisListViewController: UICollectionViewDelegateFlowLayout {
+class MockedDataSource: NSObject, UICollectionViewDataSource {
+    var mockedEmojis: MockedEmojiStorage = .init()
     
-        func collectionView(_ collectionView: UICollectionView,
-      layout collectionViewLayout: UICollectionViewLayout,
-      insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
+        return mockedEmojis.emojis.count
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-       layout collectionViewLayout: UICollectionViewLayout,
-       sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-    let layout = collectionViewLayout as! UICollectionViewFlowLayout
-    let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EmojiCollectionViewCells else {
+            return UICollectionViewCell()
+        }
+
+        let url = mockedEmojis.emojis[indexPath.row].emojiUrl
         
-    return CGSize(width: widthPerItem - 8, height: widthPerItem)
+        cell.setUpCell(url: url)
+        
+        return cell
     }
-   
+}
+
+    // - Collection's Delegate Flow Layout
+extension EmojisListViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView,
+    layout collectionViewLayout: UICollectionViewLayout,
+    insetForSectionAt section: Int) -> UIEdgeInsets {
+    
+    return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
+}
+
+func collectionView(_ collectionView: UICollectionView,
+   layout collectionViewLayout: UICollectionViewLayout,
+   sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+let layout = collectionViewLayout as! UICollectionViewFlowLayout
+let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
+    
+return CGSize(width: widthPerItem - 8, height: widthPerItem)
+}
+
 }
