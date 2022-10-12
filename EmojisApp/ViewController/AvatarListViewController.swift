@@ -16,6 +16,8 @@ class AvatarsListViewController: UIViewController, Coordinating, AvatarPresenter
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
+        
+        collectionView.backgroundColor = .none
     }
     
     private func setUpViews(){
@@ -39,7 +41,8 @@ class AvatarsListViewController: UIViewController, Coordinating, AvatarPresenter
     
     private func setUpCollectionView() {
         title = "Avatars List"
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = .appColor(name: .primary)
+        view.tintColor = .appColor(name: .secondary)
 
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
