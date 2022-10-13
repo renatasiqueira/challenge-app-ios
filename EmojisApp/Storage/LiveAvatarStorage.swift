@@ -1,9 +1,14 @@
 import Foundation
+import CoreData
+
+
 
 class LiveAvatarStorage: AvatarStorage {
+        
     weak var delegate: AvatarStorageDelegate?
     
     var avatars: [Avatar] = []
+    
     
     init(){
         loadAvatars()
