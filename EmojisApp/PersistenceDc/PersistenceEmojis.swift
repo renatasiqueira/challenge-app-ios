@@ -20,7 +20,7 @@ class PersistenceEmojis {
             
             // 2
             let emojiEntity =
-            NSEntityDescription.entity(forEntityName: "PersistenceEmoji",
+            NSEntityDescription.entity(forEntityName: "EmojiEntity",
                                        in: managedContext)!
             // 3
             let managedEmoji = NSManagedObject(entity: emojiEntity,
@@ -54,7 +54,7 @@ class PersistenceEmojis {
         
         // 2 - NSFetchRequest is the class responsible for fetching from Core Data. This is what you do here to fetch all Emojis entities.
         let fetchRequest =
-        NSFetchRequest<NSManagedObject>(entityName: "PersistenceEmoji")
+        NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
         
         
         // 3 - Hand the request over to the managed object context to do the heavy lifting. managedEmojis returns an array of managed objects meeting the criteria specified by the fetch request.

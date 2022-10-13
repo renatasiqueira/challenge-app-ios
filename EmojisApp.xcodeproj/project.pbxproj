@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C73C6DA728F7130F00B17433 /* PersistenceEmojis.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C73C6DA528F7130F00B17433 /* PersistenceEmojis.xcdatamodeld */; };
+		C73C6DA728F7130F00B17433 /* PersistenceEmoji.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C73C6DA528F7130F00B17433 /* PersistenceEmoji.xcdatamodeld */; };
 		C73C6DA928F83E3600B17433 /* ActivityIndicator+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C6DA828F83E3600B17433 /* ActivityIndicator+View.swift */; };
 		C793D4C428F6FEDA0065D83E /* PersistenceEmojis.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793D4C328F6FEDA0065D83E /* PersistenceEmojis.swift */; };
 		C79C38E228EEE408002FA1F3 /* AvatarApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79C38E128EEE408002FA1F3 /* AvatarApi.swift */; };
@@ -91,7 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				C793D4C328F6FEDA0065D83E /* PersistenceEmojis.swift */,
-				C73C6DA528F7130F00B17433 /* PersistenceEmojis.xcdatamodeld */,
+				C73C6DA528F7130F00B17433 /* PersistenceEmoji.xcdatamodeld */,
 			);
 			path = PersistenceDc;
 			sourceTree = "<group>";
@@ -340,7 +340,7 @@
 				C79C893A28E34A1E00600405 /* Coordinator.swift in Sources */,
 				C7C9F5AE28EC2F4200F65BCF /* Avatar+Mock.swift in Sources */,
 				C79C38E828EF1529002FA1F3 /* EmojisService.swift in Sources */,
-				C73C6DA728F7130F00B17433 /* PersistenceEmojis.xcdatamodeld in Sources */,
+				C73C6DA728F7130F00B17433 /* PersistenceEmoji.xcdatamodeld in Sources */,
 				C79D6EE828E5B7E20055B15E /* Emoji+Mock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -582,13 +582,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		C73C6DA528F7130F00B17433 /* PersistenceEmojis.xcdatamodeld */ = {
+		C73C6DA528F7130F00B17433 /* PersistenceEmoji.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				C73C6DA628F7130F00B17433 /* PersistenceEmoji.xcdatamodel */,
 			);
 			currentVersion = C73C6DA628F7130F00B17433 /* PersistenceEmoji.xcdatamodel */;
-			path = PersistenceEmojis.xcdatamodeld;
+			path = PersistenceEmoji.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

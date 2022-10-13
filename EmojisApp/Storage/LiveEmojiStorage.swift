@@ -24,16 +24,16 @@ class LiveEmojiStorage: EmojiService {
             })
             print(emojisList.count)
             resultHandler(.success(emojisList))
-        }
-        
-        networkManager.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result< EmojisAPICALLResult, Error>) in
-            switch result {
-            case .success(let success):
-                resultHandler(.success(success.emojis))
-                print("Success: \(success)")
-                
-            case .failure(let failure):
-               print("Error: \(failure)")
+        } else {
+            networkManager.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result< EmojisAPICALLResult, Error>) in
+                switch result {
+                case .success(let success):
+                    resultHandler(.success(success.emojis))
+                    print("Success: \(success)")
+                    
+                case .failure(let failure):
+                   print("Error: \(failure)")
+                }
             }
         }
     }
