@@ -1,4 +1,5 @@
 import Foundation
+import CoreData
 
 class LiveEmojiStorage: EmojiService {
     
@@ -6,12 +7,25 @@ class LiveEmojiStorage: EmojiService {
     weak var delegate: EmojiStorageDelegate?
     
     private var networkManager: NetworkManager = .init()
+    private var persistenceEmoji: PersistenceEmojis = .init()
     
     init() {
         
     }
     
     func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
+        var fetchEmojis : [NSManagedObject] = []
+        fetchEmojis = persistenceEmoji.loadData()
+        
+        if !fetchEmojis.isEmpty {
+            let emojisList = fetchEmojis.map({
+                item in
+                return Emoji(name: item.value(forKey: "name") as! String, emojiUrl: URL(string: item.value(forKey: "url") as! String)!)
+            })
+            print(emojisList.count)
+            resultHandler(.success(emojisList))
+        }
+        
         networkManager.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result< EmojisAPICALLResult, Error>) in
             switch result {
             case .success(let success):
@@ -23,8 +37,6 @@ class LiveEmojiStorage: EmojiService {
             }
         }
     }
-    
-    
 }
 
 protocol EmojiPresenter: EmojiStorageDelegate {

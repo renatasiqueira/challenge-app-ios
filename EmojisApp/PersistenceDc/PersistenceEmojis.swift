@@ -1,14 +1,14 @@
 import CoreData
 import UIKit
 
-class PersistenceDc {
-    var persistenceEmojis: [NSManagedObject] = []
+class PersistenceEmojis {
+    var persistenceEmojisList: [NSManagedObject] = []
     
     func saveEmojisList(name: String, url: String) {
         
         DispatchQueue.main.async {
             
-            //1 - Pull up the application delegate and grab a reference to its persistent container to get your hands on its NSManagedObjectContext.
+            //1
             
             guard let appDelegate =
                     UIApplication.shared.delegate as? AppDelegate else {
@@ -18,21 +18,21 @@ class PersistenceDc {
             let managedContext =
             appDelegate.persistentContainer.viewContext
             
-            // 2 - This is what you do here to fetch all Emojis entities.
+            // 2
             let emojiEntity =
-            NSEntityDescription.emojiEntity(forPersistenceEmoji: "PersistenceEmoji",
+            NSEntityDescription.entity(forEntityName: "PersistenceEmoji",
                                        in: managedContext)!
-            
-            let managedEmoji = NSManagedObject(emojiEntity: emojiEntity,
+            // 3
+            let managedEmoji = NSManagedObject(entity: emojiEntity,
                                                insertInto: managedContext)
             
             managedEmoji.setValue(name, forKeyPath: "name")
             managedEmoji.setValue(url, forKey: "url")
             
-            // 3 - Hand the request over to the managed object context to do the heavy lifting. managedEmojis returns an array of managed objects meeting the criteria specified by the fetch request.
+            // 4
             do {
                 try managedContext.save()
-                self.persistenceEmojis.append(managedEmoji)
+                self.persistenceEmojisList.append(managedEmoji)
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
@@ -42,22 +42,24 @@ class PersistenceDc {
     
     func loadData() -> [NSManagedObject] {
         var array: [NSManagedObject] = []
-        //1
+    
+        //1 - Pull up the application delegate and grab a reference to its persistent container to get your hands on its NSManagedObjectContext.
         guard let appDelegate =
                 UIApplication.shared.delegate as? AppDelegate else {
             return array
         }
         
-        let managedEmoji =
+        let managedContext =
         appDelegate.persistentContainer.viewContext
         
-        //2
+        // 2 - NSFetchRequest is the class responsible for fetching from Core Data. This is what you do here to fetch all Emojis entities.
         let fetchRequest =
         NSFetchRequest<NSManagedObject>(entityName: "PersistenceEmoji")
         
-        //3
+        
+        // 3 - Hand the request over to the managed object context to do the heavy lifting. managedEmojis returns an array of managed objects meeting the criteria specified by the fetch request.
         do {
-            array = try managedEmoji.fetch(fetchRequest)
+            array = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }

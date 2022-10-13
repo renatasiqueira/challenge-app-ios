@@ -68,8 +68,8 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     }
     
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         emojiService?.getEmojisList({ (result: Result<[Emoji], Error>) in
             switch result {
             case .success(let success):
