@@ -44,9 +44,3 @@ protocol EmojiPresenter: EmojiStorageDelegate {
 }
 
 
-/*
- protocol EmojiStorage {
- var delegate: EmojiStorageDelegate? { get set }
- var emojis: [Emoji] { get set }
- }
- */

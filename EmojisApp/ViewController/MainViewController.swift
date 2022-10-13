@@ -138,7 +138,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         appleReposButton.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
         
         getRandomEmojis()
-        
+       
+        emojiImage.showLoading()
         
     }
 //2 - Add to views
