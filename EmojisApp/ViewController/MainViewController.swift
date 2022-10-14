@@ -17,7 +17,7 @@ class BaseGenericView: UIView {
 }
 
 class BaseGenericViewController<View: BaseGenericView>: UIViewController {
-
+    
     var genericView: View {
         view as! View
     }
@@ -27,18 +27,18 @@ class BaseGenericViewController<View: BaseGenericView>: UIViewController {
     }
 }
 
-    class MainView: BaseGenericView {
+class MainView: BaseGenericView {
     func businessLogicOfMain() {}
 }
 
-    extension Array {
+extension Array {
     func item(at: Int) -> Element? {
-    count > at ? self[at] : nil
-}
+        count > at ? self[at] : nil
+    }
 }
 
 class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating, EmojiPresenter {
-//class MainViewController: UIViewController, Coordinating {
+    //class MainViewController: UIViewController, Coordinating {
     var coordinator: Coordinator?
     var emojiService: EmojiService?
     
@@ -55,12 +55,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     private var emojiImage = UIImageView()
     
     private var urlEmojiImage : String
-  
-    // --------- HOW TO START ---------
-    // 1 - CREATE THE VIEWS
-    // 2 - ADDVIEWS TO SUPERVIEW
-    // 3 - SET THE CONSTRAINTS
-    // --------------------------------
+    
+    
     
     // 1 - CREATE VIEWS
     
@@ -77,20 +73,15 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         horizontalSearchStackView = .init(arrangedSubviews: [searchBar, searchButton])
         verticalStackView = .init(arrangedSubviews: [imageContainerView, randomEmojisButton, emojisListButton, horizontalSearchStackView, avatarListButton, appleReposButton])
         
-        //horizontalSearchStackView.addArrangedSubview(searchBar)
-        //horizontalSearchStackView.addArrangedSubview(searchButton)
-        
-       // imageContainerView.addSubview(imageView)
         
         
-        
-    super.init(nibName: nil, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -99,34 +90,34 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         setUpConstraints()
         
     }
-
     
-//1 - Setup the Views
+    
+    //1 - Setup the Views
     private func setUpViews() {
         view.backgroundColor = .appColor(name: .suface)
         view.tintColor = .appColor(name: .onPrimary)
         
-
-                
+        
+        
         verticalStackView.axis = .vertical
-               
+        
         horizontalSearchStackView.axis = .horizontal
-               
+        
         emojisListButton.setTitle("Emojis List", for: .normal)
         
         randomEmojisButton.setTitle("Random Emojis", for: .normal)
-                
+        
         avatarListButton.setTitle("Avatars List", for: .normal)
-               
+        
         appleReposButton.setTitle("Apple Repos", for: .normal)
-              
+        
         searchButton.setTitle("Search", for: .normal)
         
         let buttonArray = [randomEmojisButton, emojisListButton, searchButton, avatarListButton, appleReposButton]
-                buttonArray.forEach {
-                    $0.configuration = .filled()
-                }
-                
+        buttonArray.forEach {
+            $0.configuration = .filled()
+        }
+        
         self.navigationController?.navigationBar.tintColor = .appColor(name: .onPrimary)
         
         emojisListButton.addTarget(self, action: #selector(didTapEmojisList), for: .touchUpInside)
@@ -138,18 +129,18 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         appleReposButton.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
         
         getRandomEmojis()
-       
+        
         emojiImage.showLoading()
         
     }
-//2 - Add to views
+    //2 - Add to views
     private func addViewToSuperView() {
         imageContainerView.addSubview(imageView)
         
         view.addSubview(verticalStackView)
-
+        
     }
-//3 - Set the constraints
+    //3 - Set the constraints
     private func setUpConstraints() {
         
         searchButton.translatesAutoresizingMaskIntoConstraints = false
@@ -157,24 +148,24 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         imageContainerView.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-    NSLayoutConstraint.activate([
-        verticalStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-        verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -30)
-    ])
-    
-    
-    NSLayoutConstraint.activate([
-        imageView.topAnchor.constraint(equalTo: imageContainerView.topAnchor), // constant: 70),
-        imageView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: -70),
-        imageView.centerXAnchor.constraint(equalTo: imageContainerView.centerXAnchor),
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-        imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45),
-       
-        
+        NSLayoutConstraint.activate([
+            verticalStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -30)
         ])
-    verticalStackView.spacing = 20;
-    horizontalSearchStackView.spacing = 20;
+        
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: imageContainerView.topAnchor), // constant: 70),
+            imageView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: -70),
+            imageView.centerXAnchor.constraint(equalTo: imageContainerView.centerXAnchor),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45),
+            
+            
+        ])
+        verticalStackView.spacing = 20;
+        horizontalSearchStackView.spacing = 20;
         
     }
     
@@ -192,31 +183,15 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     
     @objc func getRandomEmojis() {
         emojiService?.getEmojisList{(result: Result<[Emoji], Error>) in
-        switch result {
-        case .success(let success):
-            self.imageView.downloaded(from: success.randomElement()!.emojiUrl)
-        case .failure(let failure):
-            print("Error: \(failure)")
+            switch result {
+            case .success(let success):
+                self.imageView.downloaded(from: success.randomElement()!.emojiUrl)
+            case .failure(let failure):
+                print("Error: \(failure)")
+            }
         }
     }
-}
-    //Create a method with a completion handler to get the image data from your url
-//    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-//            URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-//        }
-//
-//
-//    //Create a method to download the image (start the task)
-//    func downloadImage(from url: URL) {
-//        getData(from: url) { data, response, error in
-//            guard let data = data, error == nil else { return }
-//
-//            // always update the UI from the main thread
-//            DispatchQueue.main.async() { [weak self] in
-//                self?.imageView.image = UIImage(data: data)
-//            }
-//        }
-//    }
+    
 }
 
 extension MainViewController: EmojiStorageDelegate {

@@ -150,7 +150,7 @@
 				C7A6A2A128F41BB900E77D4F /* Utilities */,
 				C79C38E328EEEF53002FA1F3 /* Data */,
 				C79D6EE128E5B03E0055B15E /* Storage */,
-				C79D6EDE28E598160055B15E /* EmojiCollectionViewCells */,
+				C79D6EDE28E598160055B15E /* CollectionViewCells */,
 				C79D6EDD28E597E10055B15E /* Model */,
 				C79C891128E1BA3100600405 /* AppDelegate.swift */,
 				C79C891328E1BA3100600405 /* SceneDelegate.swift */,
@@ -187,12 +187,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		C79D6EDE28E598160055B15E /* EmojiCollectionViewCells */ = {
+		C79D6EDE28E598160055B15E /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
 				C79D6EDF28E5982A0055B15E /* EmojiCollectionViewCells.swift */,
 			);
-			path = EmojiCollectionViewCells;
+			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
 		C79D6EE128E5B03E0055B15E /* Storage */ = {
