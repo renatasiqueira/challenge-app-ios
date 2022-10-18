@@ -187,7 +187,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
             case .success(let success):
                 self.imageView.downloaded(from: success.randomElement()!.emojiUrl)
             case .failure(let failure):
-                print("Error: \(failure)")
+                print("ErrorGetRandomEmojis: \(failure)")
             }
         }
     }

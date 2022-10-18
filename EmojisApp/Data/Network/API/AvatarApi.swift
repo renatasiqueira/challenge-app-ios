@@ -7,7 +7,11 @@ enum AvatarAPI {
 
 extension AvatarAPI: APIProtocol {
     var url: URL {
-        URL(string: "https://api.github.com/users")!
+        get {
+            return URL(string: "https://api.github.com/users")!
+        }
+        set(newValue) {
+        }
     }
     
     var method: Method {
@@ -18,10 +22,8 @@ extension AvatarAPI: APIProtocol {
             return .post
         }
     }
+    
     var headers: [String: String] {
         ["Contect-Type": "application/json"]
     }
-}
-struct AvatarsAPICALLResult: Decodable {
-    
 }

@@ -4,7 +4,7 @@ import CoreData
 class LiveEmojiStorage: EmojiService {
     
     var emojis: [Emoji] = []
-    weak var delegate: EmojiStorageDelegate?
+    //weak var delegate: EmojiStorageDelegate?
     
     private var networkManager: NetworkManager = .init()
     private var persistenceEmoji: PersistenceEmojis = .init()
@@ -32,7 +32,7 @@ class LiveEmojiStorage: EmojiService {
                     print("Success: \(success)")
                     
                 case .failure(let failure):
-                   print("Error: \(failure)")
+                   print("ErrorNetworkCall: \(failure)")
                 }
             }
         }

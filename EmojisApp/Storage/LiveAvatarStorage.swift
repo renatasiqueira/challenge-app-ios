@@ -5,6 +5,9 @@ import CoreData
 
 class LiveAvatarStorage: AvatarStorage {
     
+    private var networkManager: NetworkManager = .init()
+    private var avatarPersistence: PersistenceAvatar = .init()
+    
     weak var delegate: AvatarStorageDelegate?
     
     var avatars: [Avatar] = []

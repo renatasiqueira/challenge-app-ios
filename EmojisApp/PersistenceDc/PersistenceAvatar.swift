@@ -48,33 +48,41 @@ class PersistenceAvatar {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-}
-
-func fetchAvatarData(_ resultHandler: @escaping ([NSManagedObject]) -> Void){
-    var array: [NSManagedObject]
-    //        guard let appDelegate =
-    //                UIApplication.shared.delegate as? AppDelegate else {
-    //            return
-    //        }
     
-    let managedContext = self.appDelegate.persistentContainer.viewContext
-
-    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+    func fetchAvatarData(_ resultHandler: @escaping ([NSManagedObject]) -> Void){
+        var array: [NSManagedObject]
+        //        guard let appDelegate =
+        //                UIApplication.shared.delegate as? AppDelegate else {
+        //            return
+        //        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
+        
+        do {
+            array = try managedContext.fetch(fetchRequest)
+            resultHandler(array)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+            
+        }
+    }
     
-    do {
-        array = try managedContext.fetch(fetchRequest)
-        resultHandler(array)
-    } catch let error as NSError {
-        print("Could not save. \(error), \(error.userInfo)")
+    func checkAvatarItem(login: String, _ resultHandler: @escaping (Result<[NSManagedObject], Error>) -> Void){
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
+        fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", login)
+        
+        do {
+            let persistAvatar = try managedContext.fetch(fetchRequest)
+            resultHandler(.success(persistAvatar))
+        } catch {
+            print(error)
+            resultHandler(.failure(error))
+        }
+        
     }
 }
-
-func checkItemExist(login: String, _ resultHandler: @escaping(Result<[NSManagedObject], Error>) -> Void){
-    let managedContext = self.appDelegate.persistentContainer.viewContext
-    
-    let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
-    fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", login)
-    
-}
-
 
