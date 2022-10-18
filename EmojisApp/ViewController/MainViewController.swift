@@ -41,6 +41,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     //class MainViewController: UIViewController, Coordinating {
     var coordinator: Coordinator?
     var emojiService: EmojiService?
+    var avatarService: LiveAvatarStorage = .init()
     
     private var verticalStackView = UIStackView()
     private var horizontalSearchStackView = UIStackView()
@@ -128,6 +129,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         
         appleReposButton.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
         
+        searchButton.addTarget(self, action: #selector(getSearchAvatar), for: .touchUpInside)
+        
         getRandomEmojis()
         
         emojiImage.showLoading()
@@ -190,6 +193,19 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
                 print("ErrorGetRandomEmojis: \(failure)")
             }
         }
+    }
+    
+    @objc func getSearchAvatar() {
+        
+        guard let avatarName = searchBar.text else {return}
+        avatarService.getAvatar(searchText: avatarName, {(result: Result<Avatar, Error>) in
+            switch result {
+            case .success(let sucess):
+                self.imageView.downloaded(from: sucess.avatarUrl)
+            case.failure(let failure):
+                print("ErrorGetSearchAvatar: \(failure)")
+            }
+        })
     }
     
 }

@@ -18,7 +18,7 @@ class PersistenceAvatar {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
         
-        //                    fetchRequest.predicate = NSPredicate(format: "name ==[cd] %@", searchText)
+        fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", searchText)
         
         do {
             let result = try managedContext.fetch(fetchRequest)
@@ -69,20 +69,7 @@ class PersistenceAvatar {
         }
     }
     
-    func checkAvatarItem(login: String, _ resultHandler: @escaping (Result<[NSManagedObject], Error>) -> Void){
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
-        fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", login)
-        
-        do {
-            let persistAvatar = try managedContext.fetch(fetchRequest)
-            resultHandler(.success(persistAvatar))
-        } catch {
-            print(error)
-            resultHandler(.failure(error))
-        }
-        
-    }
+    
 }
+
 

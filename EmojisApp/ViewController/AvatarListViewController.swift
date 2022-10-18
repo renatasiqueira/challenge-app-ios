@@ -1,9 +1,11 @@
 import UIKit
 
-class AvatarsListViewController: UIViewController, Coordinating, AvatarPresenter {
+class AvatarsListViewController: UIViewController, Coordinating {
     
     var coordinator: Coordinator?
-    var avatarStorage: AvatarStorage?
+    var avatarService: LiveAvatarStorage?
+    
+    var avatarList: [Avatar]  = []
     
     lazy var collectionView: UICollectionView = {
         let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -58,9 +60,11 @@ class AvatarsListViewController: UIViewController, Coordinating, AvatarPresenter
         collectionView.dataSource = self
         }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("Avatars: \(String(describing: avatarStorage?.avatars.count))")
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        avatarService?.fetchAvatarList({ (result: [Avatar]) in
+            self.avatarList = result
+        })
         
     }
     
@@ -75,9 +79,7 @@ extension AvatarsListViewController: AvatarStorageDelegate {
 extension AvatarsListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        let countAvatars = avatarStorage?.avatars.count ?? 0
-        
-        return countAvatars
+        return avatarList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -85,7 +87,7 @@ extension AvatarsListViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        let url = (avatarStorage?.avatars[indexPath.row].avatarUrl)!
+        let url = avatarList[indexPath.row].avatarUrl
         
         cell.setUpCell(url: url)
         

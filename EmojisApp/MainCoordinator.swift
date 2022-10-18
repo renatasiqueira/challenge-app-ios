@@ -1,42 +1,44 @@
 import Foundation
 import UIKit
 
-class MainCoordinator: Coordinator, EmojiPresenter, AvatarPresenter {
-    var avatarStorage: AvatarStorage?
+class MainCoordinator: Coordinator, EmojiPresenter {
+    var avatarService: AvatarService?
     var navigationController: UINavigationController?
     var emojiService: EmojiService?
     
+    var liveAvatarStorage: LiveAvatarStorage = .init()
     
-    init(emojiService: EmojiService, avatarStorage: AvatarStorage) {
+    
+    init(emojiService: EmojiService, avatarService: AvatarService) {
         self.emojiService = emojiService
     
-        self.avatarStorage = avatarStorage
-        self.avatarStorage?.delegate = self
+        self.avatarService = avatarService
     }
     
     func eventOccurred(with type: Event) {
         switch type {
         case .emojisListButton:
-            var vc: UIViewController & Coordinating & EmojiPresenter = EmojisListViewController()
+            let vc = EmojisListViewController()
             vc.coordinator = self
             vc.emojiService = emojiService
             navigationController?.pushViewController(vc, animated: true)
         case .avatarListButton:
-            var vc: UIViewController & Coordinating & AvatarPresenter = AvatarsListViewController()
+            let vc = AvatarsListViewController()
             vc.coordinator = self
-            vc.avatarStorage = avatarStorage
+            vc.avatarService = liveAvatarStorage
             navigationController?.pushViewController(vc, animated: true)
         case .appleReposButton:
-            var vc: UIViewController & Coordinating = AvatarsListViewController()
+            let vc = AvatarsListViewController()
             vc.coordinator = self
             navigationController?.pushViewController(vc, animated: true)
         }
     }
     
     func start() {
-        var vc: UIViewController & Coordinating & EmojiPresenter = MainViewController()
+        let vc = MainViewController()
         vc.coordinator = self
         vc.emojiService = emojiService
+        vc.avatarService = liveAvatarStorage
         navigationController?.setViewControllers([vc], animated: false)
     }
     
