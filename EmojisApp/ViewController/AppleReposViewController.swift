@@ -1,4 +1,6 @@
 import UIKit
+import CoreData
+
 
 class AppleReposViewController: UIViewController, Coordinating {
 

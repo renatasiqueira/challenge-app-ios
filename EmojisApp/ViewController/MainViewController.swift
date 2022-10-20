@@ -38,7 +38,7 @@ extension Array {
 }
 
 class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating, EmojiPresenter {
-    //class MainViewController: UIViewController, Coordinating {
+  
     var coordinator: Coordinator?
     var emojiService: EmojiService?
     var avatarService: LiveAvatarStorage = .init()

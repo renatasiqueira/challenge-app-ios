@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AppRepoEntity" representedClassName="AppRepoEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="attribute" optional="YES"/>
+    </entity>
     <entity name="AvatarEntity" representedClassName="AvatarEntity" syncable="YES" codeGenerationType="class">
         <attribute name="avatarUrl" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -12,5 +15,6 @@
     <elements>
         <element name="AvatarEntity" positionX="-63" positionY="-18" width="128" height="74"/>
         <element name="EmojiEntity" positionX="-54" positionY="18" width="128" height="59"/>
+        <element name="AppRepoEntity" positionX="-18" positionY="54" width="128" height="44"/>
     </elements>
 </model>
