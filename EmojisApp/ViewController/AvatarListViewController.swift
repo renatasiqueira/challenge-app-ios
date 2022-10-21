@@ -45,20 +45,20 @@ class AvatarsListViewController: UIViewController, Coordinating {
         title = "Avatars List"
         view.backgroundColor = .appColor(name: .primary)
         view.tintColor = .appColor(name: .secondary)
-
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 4
-
+        
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
-
+        
         collectionView.register(EmojiCollectionViewCells.self, forCellWithReuseIdentifier: "cell")
-
+        
         collectionView.delegate = self
         collectionView.dataSource = self
-        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -81,12 +81,12 @@ extension AvatarsListViewController: UICollectionViewDataSource {
         
         return avatarList.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EmojiCollectionViewCells else {
             return UICollectionViewCell()
         }
-
+        
         let url = avatarList[indexPath.row].avatarUrl
         
         cell.setUpCell(url: url)
@@ -98,14 +98,14 @@ extension AvatarsListViewController: UICollectionViewDataSource {
 
 extension AvatarsListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
-                  layout collectionViewLayout: UICollectionViewLayout,
-                  insetForSectionAt section: Int) -> UIEdgeInsets {
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
-                   layout collectionViewLayout: UICollectionViewLayout,
-                   sizeForItemAt indexPath: IndexPath) -> CGSize {
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing

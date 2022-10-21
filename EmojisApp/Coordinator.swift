@@ -29,5 +29,9 @@ protocol AvatarStorageDelegate: AnyObject {
     func avatarListUpdated()
 }
 
+protocol ReposStorageDelegate: AnyObject {
+    func reposListUpdated()
+}
+
 
 

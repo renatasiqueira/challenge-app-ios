@@ -5,14 +5,17 @@ class MainCoordinator: Coordinator, EmojiPresenter {
     var avatarService: AvatarService?
     var navigationController: UINavigationController?
     var emojiService: EmojiService?
+    var appleReposService: AppleReposService?
     
     var liveAvatarStorage: LiveAvatarStorage = .init()
     
     
-    init(emojiService: EmojiService, avatarService: AvatarService) {
+    init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
         self.emojiService = emojiService
-    
+        
         self.avatarService = avatarService
+        
+        self.appleReposService = appleReposService
     }
     
     func eventOccurred(with type: Event) {
@@ -28,8 +31,9 @@ class MainCoordinator: Coordinator, EmojiPresenter {
             vc.avatarService = liveAvatarStorage
             navigationController?.pushViewController(vc, animated: true)
         case .appleReposButton:
-            let vc = AvatarsListViewController()
+            let vc = AppleReposViewController()
             vc.coordinator = self
+            vc.appleReposService = appleReposService
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -39,6 +43,7 @@ class MainCoordinator: Coordinator, EmojiPresenter {
         vc.coordinator = self
         vc.emojiService = emojiService
         vc.avatarService = liveAvatarStorage
+        // vc.appleReposService = appleReposService
         navigationController?.setViewControllers([vc], animated: false)
     }
     

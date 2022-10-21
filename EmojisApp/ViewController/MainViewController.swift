@@ -43,6 +43,8 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     var emojiService: EmojiService?
     var avatarService: LiveAvatarStorage = .init()
     
+    var networkManager: NetworkManager = .init()
+    
     private var verticalStackView = UIStackView()
     private var horizontalSearchStackView = UIStackView()
     private var imageView = UIImageView()
@@ -207,6 +209,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
             }
         })
     }
+    
     
 }
 
