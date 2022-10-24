@@ -6,10 +6,9 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     
     var coordinator: Coordinator?
     var emojiService: EmojiService?
-    var liveEmojiStorage: LiveEmojiStorage = .init()
     var emojisList: [Emoji] = []
     
-    var strong = MockedDataSource()
+   //var mockedEmojisDataSource = MockedEmojisDataSource() = .init()
     
     lazy var collectionView: UICollectionView = {
         let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
@@ -126,14 +125,14 @@ class MockedDataSource: NSObject, UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EmojiCollectionViewCells else {
             return UICollectionViewCell()
         }
-        
-        let url = mockedEmojis.emojis[indexPath.row].emojiUrl
-        
-        cell.setUpCell(url: url)
-        
-        return cell
+               
+            cell.setUpCell(url: mockedEmojis.emojis[indexPath.row].emojiUrl)
+            
+            return cell
+        }
+
     }
-}
+
 
 // - Collection's Delegate Flow Layout
 extension EmojisListViewController: UICollectionViewDelegateFlowLayout {

@@ -6,6 +6,7 @@ enum ColorProvider: String {
     case onPrimary
     case suface
     case secondary
+    case safeBar
 }
 
 extension UIColor {

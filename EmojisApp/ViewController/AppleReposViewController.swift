@@ -38,6 +38,8 @@ class AppleReposViewController: UIViewController, Coordinating {
         addViewToSuperView()
         setUpConstraints()
         
+        view.backgroundColor = .appColor(name: .safeBar)
+        
     }
     
     private func setUpViews() {
@@ -54,7 +56,7 @@ class AppleReposViewController: UIViewController, Coordinating {
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
@@ -62,6 +64,8 @@ class AppleReposViewController: UIViewController, Coordinating {
     private func setUpTableView() {
         title = "Apple Repos"
         
+        tableView.automaticallyAdjustsScrollIndicatorInsets = false
+        tableView.contentInsetAdjustmentBehavior = .never
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AppleReposCell")
         
@@ -72,6 +76,7 @@ class AppleReposViewController: UIViewController, Coordinating {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         
         appleReposService?.getRepos(itemsPerPage: itemsPerPage, pageNumber: pageNumber){ (result: Result<[AppleRepos], Error>) in
             
@@ -92,5 +97,58 @@ class AppleReposViewController: UIViewController, Coordinating {
 }
 
 // MARK: - UITableViewDataSource
-
-
+extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView){
+        
+        let offset = scrollView.contentOffset.y
+        print("offset: \(offset)")
+        
+        let heightVisibleScroll = scrollView.frame.size.height
+        print("heightVisibleScroll: \(heightVisibleScroll)")
+        
+        let heightTable = scrollView.contentSize.height
+        print("heightTable: \(heightTable)")
+        
+        if (offset > 0 && (offset + heightVisibleScroll) > (heightTable-heightVisibleScroll*0.2) && addedToView && !isEnd) {
+            
+            addedToView = false
+            self.pageNumber += 1
+            self.appleReposService?.getRepos(itemsPerPage: itemsPerPage, pageNumber: pageNumber){ (result: Result<[AppleRepos], Error>) in
+                switch result{
+                case .success(let success):
+                    self.reposList.append(contentsOf: success)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.tableView.reloadData()
+                    }
+                    
+                    if success.count < self.itemsPerPage {
+                        self.isEnd = true
+                    }
+                    
+                case .failure(let failure):
+                    print("Failure: \(failure)")
+                }
+            }
+            
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        addedToView = true
+        return reposList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AppleReposCell", for: indexPath)
+        let fullName = reposList[indexPath.row].fullName
+        
+        cell.textLabel?.text = fullName
+        
+        return cell
+        
+    }
+    
+}

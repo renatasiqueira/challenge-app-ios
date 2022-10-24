@@ -3,7 +3,7 @@ import UIKit
 
 class MockedEmojiStorage: EmojiService {
         
-    var delegate: EmojiStorageDelegate?
+    weak var delegate: EmojiStorageDelegate?
         
     private var mockedEmojis: MockedEmojisStorage = .init()
     
