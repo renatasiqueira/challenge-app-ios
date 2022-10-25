@@ -54,7 +54,7 @@ class AvatarsListViewController: UIViewController, Coordinating {
         
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
         
-        collectionView.register(EmojiCollectionViewCells.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(AvatarCollectionViewCell.self, forCellWithReuseIdentifier: AvatarCollectionViewCell.reuseCellIdentifier)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -83,9 +83,7 @@ extension AvatarsListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EmojiCollectionViewCells else {
-            return UICollectionViewCell()
-        }
+        let cell: AvatarCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         
         let url = avatarList[indexPath.row].avatarUrl
         

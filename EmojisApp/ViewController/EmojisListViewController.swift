@@ -8,7 +8,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     var emojiService: EmojiService?
     var emojisList: [Emoji] = []
     
-   //var mockedEmojisDataSource = MockedEmojisDataSource() = .init()
+    //var mockedEmojisDataSource = MockedEmojisDataSource() = .init()
     
     lazy var collectionView: UICollectionView = {
         let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
@@ -59,7 +59,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
         
         // 3 - Registering the Cells
-        collectionView.register(EmojiCollectionViewCells.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(EmojiCollectionViewCell.self, forCellWithReuseIdentifier: EmojiCollectionViewCell.reuseCellIdentifier )
         
         // 4 - Delegate & DataSource
         collectionView.delegate = self
@@ -100,9 +100,7 @@ extension EmojisListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EmojiCollectionViewCells else {
-            return UICollectionViewCell()
-        }
+        let cell: EmojiCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         
         let url = emojisList[indexPath.row].emojiUrl
         
@@ -122,16 +120,14 @@ class MockedDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? EmojiCollectionViewCells else {
-            return UICollectionViewCell()
-        }
-               
-            cell.setUpCell(url: mockedEmojis.emojis[indexPath.row].emojiUrl)
-            
-            return cell
-        }
-
+        let cell: EmojiCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+        
+        cell.setUpCell(url: mockedEmojis.emojis[indexPath.row].emojiUrl)
+        
+        return cell
     }
+    
+}
 
 
 // - Collection's Delegate Flow Layout

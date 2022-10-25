@@ -13,8 +13,6 @@ class AppleReposViewController: UIViewController, Coordinating {
     
     private var reposList: [AppleRepos]  = []
     
-    private var mockedAppleReposStorage: MockedAppleReposStorage = .init()
-    
     private var itemsPerPage: Int = 10
     private var pageNumber: Int = 1
     
@@ -66,9 +64,8 @@ class AppleReposViewController: UIViewController, Coordinating {
         
         tableView.automaticallyAdjustsScrollIndicatorInsets = false
         tableView.contentInsetAdjustmentBehavior = .never
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AppleReposCell")
-        
+        tableView.register(AppleReposTableViewCell.self, forCellReuseIdentifier: AppleReposTableViewCell.reuseCellIdentifier)
+                
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -142,7 +139,7 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AppleReposCell", for: indexPath)
+        let cell: AppleReposTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         let fullName = reposList[indexPath.row].fullName
         
         cell.textLabel?.text = fullName

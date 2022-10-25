@@ -1,17 +1,17 @@
 import UIKit
 
 
-class EmojiCollectionViewCells: UICollectionViewCell {
+class AvatarCollectionViewCell: UICollectionViewCell {
       
-    private var emojiImageView: UIImageView
+    private var avatarImageView: UIImageView
     var dataTask: URLSessionDataTask?
     
     override init(frame: CGRect) {
-        emojiImageView = .init(frame: .zero)
+        avatarImageView = .init(frame: .zero)
         super.init(frame: .zero)
-        self.contentView.addSubview(emojiImageView)
+        self.contentView.addSubview(avatarImageView)
         setupConstraints()
-        //emojiImageView.backgroundColor = .black
+
     }
     
     required init?(coder: NSCoder) {
@@ -23,13 +23,13 @@ class EmojiCollectionViewCells: UICollectionViewCell {
     }
     
     func setupConstraints(){
-        emojiImageView.translatesAutoresizingMaskIntoConstraints = false
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            emojiImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            emojiImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            emojiImageView.topAnchor.constraint(equalTo: self.topAnchor),
-            emojiImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            avatarImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            avatarImageView.topAnchor.constraint(equalTo: self.topAnchor),
+            avatarImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
     
@@ -38,7 +38,7 @@ class EmojiCollectionViewCells: UICollectionViewCell {
         super.prepareForReuse()
         dataTask?.cancel()
         
-        emojiImageView.image = nil
+        avatarImageView.image = nil
         
     }
 
@@ -52,16 +52,16 @@ class EmojiCollectionViewCells: UICollectionViewCell {
         getData(from: url) { [weak self] data, response, error in
             if error != nil {
                 DispatchQueue.main.async {
-                    self?.emojiImageView.image = nil
+                    self?.avatarImageView.image = nil
                     self?.dataTask = nil
                 }
                 return
             }
             DispatchQueue.main.async() { () in
-                self?.emojiImageView.image = nil
+                self?.avatarImageView.image = nil
                 self?.dataTask = nil
                 guard let data = data, error == nil else { return }
-                self?.emojiImageView.image = UIImage(data: data)
+                self?.avatarImageView.image = UIImage(data: data)
             }
         }
     }
