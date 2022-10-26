@@ -1,10 +1,3 @@
-//
-//  UICollectionViewCell+ReusableView.swift
-//  EmojisApp
-//
-//  Created by Renata Siqueira on 25/10/2022.
-//
-
 import Foundation
 import UIKit
 

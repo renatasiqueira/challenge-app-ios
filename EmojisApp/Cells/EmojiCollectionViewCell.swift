@@ -4,7 +4,7 @@ import UIKit
 class EmojiCollectionViewCell: UICollectionViewCell {
       
     private var emojiImageView: UIImageView
-    var dataTask: URLSessionDataTask?
+    private var dataTask: URLSessionDataTask?
     
     override init(frame: CGRect) {
         emojiImageView = .init(frame: .zero)
