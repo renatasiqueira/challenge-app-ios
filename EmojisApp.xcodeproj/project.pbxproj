@@ -48,6 +48,7 @@
 		C7A7C81D29084AA900EE08C5 /* UICollectionViewCell+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C81C29084AA900EE08C5 /* UICollectionViewCell+ReusableView.swift */; };
 		C7A7C81F29084D5700EE08C5 /* UITableViewCell+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C81E29084D5700EE08C5 /* UITableViewCell+ReusableView.swift */; };
 		C7A7C82129084E5B00EE08C5 /* AppleReposTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C82029084E5B00EE08C5 /* AppleReposTableViewCell.swift */; };
+		C7A7C825290A7CCF00EE08C5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C824290A7CCF00EE08C5 /* Constants.swift */; };
 		C7C9F5A828EAF5D400F65BCF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9F5A728EAF5D400F65BCF /* NetworkManager.swift */; };
 		C7C9F5AA28EAF84700F65BCF /* EmojiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9F5A928EAF84700F65BCF /* EmojiApi.swift */; };
 		C7C9F5AC28EC2E2300F65BCF /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9F5AB28EC2E2300F65BCF /* Avatar.swift */; };
@@ -98,6 +99,7 @@
 		C7A7C81C29084AA900EE08C5 /* UICollectionViewCell+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+ReusableView.swift"; sourceTree = "<group>"; };
 		C7A7C81E29084D5700EE08C5 /* UITableViewCell+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ReusableView.swift"; sourceTree = "<group>"; };
 		C7A7C82029084E5B00EE08C5 /* AppleReposTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleReposTableViewCell.swift; sourceTree = "<group>"; };
+		C7A7C824290A7CCF00EE08C5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C7C9F5A728EAF5D400F65BCF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C7C9F5A928EAF84700F65BCF /* EmojiApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiApi.swift; sourceTree = "<group>"; };
 		C7C9F5AB28EC2E2300F65BCF /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				C7A091CA28FF01100045EC13 /* NSManagedObject+Avatar.swift */,
 				C7A7C81C29084AA900EE08C5 /* UICollectionViewCell+ReusableView.swift */,
 				C7A7C81E29084D5700EE08C5 /* UITableViewCell+ReusableView.swift */,
+				C7A7C824290A7CCF00EE08C5 /* Constants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				C7C9F5A828EAF5D400F65BCF /* NetworkManager.swift in Sources */,
 				C79C38E228EEE408002FA1F3 /* AvatarApi.swift in Sources */,
 				C7C9F5AC28EC2E2300F65BCF /* Avatar.swift in Sources */,
+				C7A7C825290A7CCF00EE08C5 /* Constants.swift in Sources */,
 				C7A7C81F29084D5700EE08C5 /* UITableViewCell+ReusableView.swift in Sources */,
 				C7A7C81D29084AA900EE08C5 /* UICollectionViewCell+ReusableView.swift in Sources */,
 				C79C891628E1BA3100600405 /* MainViewController.swift in Sources */,

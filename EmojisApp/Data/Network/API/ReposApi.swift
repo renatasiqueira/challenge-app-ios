@@ -22,19 +22,18 @@ extension ReposAPI: APIProtocol {
         switch self {
                     
                 case .getRepos(let perPage, let page):
-                    var urlComponents = URLComponents(string:"https://api.github.com/users/apple/repos")
+                    var urlComponents = URLComponents(string:"\(Constants.baseURL)/users/apple/repos")
                     
                     urlComponents?.queryItems = [
                     URLQueryItem(name: "per_page", value: String(perPage)),
                     URLQueryItem(name: "page", value: String(page)),
                     ]
                     guard let url = urlComponents?.url else {
-                        return URL(string: "")!
+                        fatalError("Cannot found URL")
                     }
 
                 return url
     }
-    
 }
     
 }
