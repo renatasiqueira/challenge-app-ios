@@ -8,8 +8,8 @@ class AvatarsListViewController: UIViewController, Coordinating {
     var avatarList: [Avatar]  = []
     
     lazy var collectionView: UICollectionView = {
-        let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        return v
+        let collectionV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        return collectionV
     }()
     
     override func viewDidLoad() {
@@ -100,12 +100,12 @@ extension AvatarsListViewController: UICollectionViewDelegateFlowLayout {
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+
+        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else {return .zero}
         let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
         return CGSize(width: widthPerItem - 8, height: widthPerItem)
     }

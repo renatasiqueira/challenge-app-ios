@@ -2,35 +2,6 @@ import UIKit
 import Alamofire
 
 
-//class BaseGenericView: UIView {
-//    required init() {
-//        super.init(frame: .zero)
-//        setupView()
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//        fatalError()
-//    }
-//    
-//    func setupView() {}
-//}
-
-//class BaseGenericViewController<View: BaseGenericView>: UIViewController {
-//    
-//    var genericView: View {
-//        view as! View
-//    }
-//    
-//    override func loadView() {
-//        view = View()
-//    }
-//}
-
-//class MainView: BaseGenericView {
-//    func businessLogicOfMain() {}
-//}
-
 class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating, EmojiPresenter {
   
     var coordinator: Coordinator?

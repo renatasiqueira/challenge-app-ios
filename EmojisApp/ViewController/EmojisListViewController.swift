@@ -8,11 +8,9 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
     var emojiService: EmojiService?
     var emojisList: [Emoji] = []
     
-    //var mockedEmojisDataSource = MockedEmojisDataSource() = .init()
-    
     lazy var collectionView: UICollectionView = {
-        let v = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-        return v
+        let collectionV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        return collectionV
     }()
     
     override func viewDidLoad() {
@@ -24,7 +22,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
         
         collectionView.backgroundColor = .none
     }
-    
+
     private func setUpViews() {
         setUpCollectionView()
     }
@@ -80,7 +78,7 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
                 print("Error: \(failure)")
             }
         })
-        
+
     }
 }
 
@@ -144,10 +142,10 @@ extension EmojisListViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else {return .zero}
         let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
-        
+
         return CGSize(width: widthPerItem - 8, height: widthPerItem)
     }
-    
+
 }

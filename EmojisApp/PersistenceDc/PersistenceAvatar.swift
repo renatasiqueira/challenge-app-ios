@@ -4,17 +4,16 @@ import CoreData
 
 class PersistenceAvatar {
     var persistenceAvatarList: [NSManagedObject] = []
-    var appDelegate: AppDelegate
-    
-    init() {
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var persistenceContainer: NSPersistentContainer
+
+    init(persistenceContainer: NSPersistentContainer) {
+        self.persistenceContainer = persistenceContainer
     }
-    
-    
+
     func checkAvatarList(searchText: String, _ resultHandler: @escaping(Result<[NSManagedObject], Error>) -> Void) {
-        
-        let managedContext = self.appDelegate.persistentContainer.viewContext
-        
+
+        let managedContext = self.persistenceContainer.viewContext
+
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
 
         fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", searchText)
@@ -31,7 +30,7 @@ class PersistenceAvatar {
     
     func persist(currentAvatar: Avatar) {
 
-        let managedContext = self.appDelegate.persistentContainer.viewContext
+        let managedContext = self.persistenceContainer.viewContext
 
         let entity = NSEntityDescription.entity(forEntityName: "AvatarEntity", in: managedContext)!
 
@@ -49,12 +48,8 @@ class PersistenceAvatar {
     }
     func fetchAvatarData(_ resultHandler: @escaping ([NSManagedObject]) -> Void){
         var array: [NSManagedObject]
-        //        guard let appDelegate =
-        //                UIApplication.shared.delegate as? AppDelegate else {
-        //            return
-        //        }
 
-        let managedContext = appDelegate.persistentContainer.viewContext
+        let managedContext = persistenceContainer.viewContext
 
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
 

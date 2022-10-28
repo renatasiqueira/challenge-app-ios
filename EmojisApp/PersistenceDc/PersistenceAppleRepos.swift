@@ -3,11 +3,9 @@ import UIKit
 
 class PersistenceAppleRepos {
     var persistenceAppleReposList: [NSManagedObject] = []
+    var persistenceContainer: NSPersistentContainer
 
-    var appDelegate: AppDelegate
-
-    init() {
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
+    init(persistenceContainer: NSPersistentContainer) {
+        self.persistenceContainer = persistenceContainer
     }
-
 }

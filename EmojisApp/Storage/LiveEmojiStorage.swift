@@ -1,29 +1,32 @@
 import Foundation
 import CoreData
+import UIKit
 
 class LiveEmojiStorage: EmojiService {
-    
+
     var emojis: [Emoji] = []
-    //weak var delegate: EmojiStorageDelegate?
-    
+
     private var networkManager: NetworkManager = .init()
-    private var persistenceEmoji: PersistenceEmojis = .init()
+    private let persistenceEmoji: PersistenceEmojis
+
     
-    init() {
-        
+    init(persistentContainer: NSPersistentContainer) {
+        persistenceEmoji = .init(persistenceContainer: persistentContainer)
     }
     
     func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
-        var fetchEmojis : [NSManagedObject] = []
+        var fetchEmojis: [NSManagedObject] = []
         fetchEmojis = persistenceEmoji.loadData()
 
         if !fetchEmojis.isEmpty {
-            let emojisList = fetchEmojis.map({
-                item in
-                return Emoji(name: item.value(forKey: "name") as! String, emojiUrl: URL(string: item.value(forKey: "url") as! String)!)
+            let emojisList = fetchEmojis.compactMap({ item -> Emoji? in
+                guard let itemName = item.value(forKey: "name") as? String else {return nil}
+                guard let itemUrl = item.value(forKey: "url") as? URL else {return nil}
+                return Emoji(name: itemName, emojiUrl: itemUrl)
             })
-            print(emojisList.count)
-            resultHandler(.success(emojisList))
+
+            print(emojis.count)
+            resultHandler(.success(emojis))
         } else {
             networkManager.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result< EmojisAPICALLResult, Error>) in
                 switch result {
@@ -38,9 +41,6 @@ class LiveEmojiStorage: EmojiService {
         }
     }
 }
-
 protocol EmojiPresenter: EmojiStorageDelegate {
     var emojiService: EmojiService? { get set }
 }
-
-
