@@ -16,7 +16,7 @@ class LiveEmojiStorage: EmojiService {
     func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
         var fetchEmojis : [NSManagedObject] = []
         fetchEmojis = persistenceEmoji.loadData()
-        
+
         if !fetchEmojis.isEmpty {
             let emojisList = fetchEmojis.map({
                 item in
@@ -30,9 +30,9 @@ class LiveEmojiStorage: EmojiService {
                 case .success(let success):
                     resultHandler(.success(success.emojis))
                     print("Success: \(success)")
-                    
+
                 case .failure(let failure):
-                   print("ErrorNetworkCall: \(failure)")
+                    print("ErrorNetworkCall: \(failure)")
                 }
             }
         }

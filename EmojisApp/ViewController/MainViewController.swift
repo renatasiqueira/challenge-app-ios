@@ -2,40 +2,34 @@ import UIKit
 import Alamofire
 
 
-class BaseGenericView: UIView {
-    required init() {
-        super.init(frame: .zero)
-        setupView()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        fatalError()
-    }
-    
-    func setupView() {}
-}
+//class BaseGenericView: UIView {
+//    required init() {
+//        super.init(frame: .zero)
+//        setupView()
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//        fatalError()
+//    }
+//    
+//    func setupView() {}
+//}
 
-class BaseGenericViewController<View: BaseGenericView>: UIViewController {
-    
-    var genericView: View {
-        view as! View
-    }
-    
-    override func loadView() {
-        view = View()
-    }
-}
+//class BaseGenericViewController<View: BaseGenericView>: UIViewController {
+//    
+//    var genericView: View {
+//        view as! View
+//    }
+//    
+//    override func loadView() {
+//        view = View()
+//    }
+//}
 
-class MainView: BaseGenericView {
-    func businessLogicOfMain() {}
-}
-
-extension Array {
-    func item(at: Int) -> Element? {
-        count > at ? self[at] : nil
-    }
-}
+//class MainView: BaseGenericView {
+//    func businessLogicOfMain() {}
+//}
 
 class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating, EmojiPresenter {
   
@@ -216,5 +210,11 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
 extension MainViewController: EmojiStorageDelegate {
     func emojiListUpdated() {
         getRandomEmojis()
+    }
+}
+
+extension Array {
+    func item(at: Int) -> Element? {
+        count > at ? self[at] : nil
     }
 }

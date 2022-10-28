@@ -61,22 +61,21 @@ class AppleReposViewController: UIViewController, Coordinating {
     
     private func setUpTableView() {
         title = "Apple Repos"
-        
+
         tableView.automaticallyAdjustsScrollIndicatorInsets = false
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.register(AppleReposTableViewCell.self, forCellReuseIdentifier: AppleReposTableViewCell.reuseCellIdentifier)
-                
+
         tableView.dataSource = self
         tableView.delegate = self
-        
+
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
+
         appleReposService?.getRepos(itemsPerPage: itemsPerPage, pageNumber: pageNumber){ (result: Result<[AppleRepos], Error>) in
-            
+
             switch result {
             case .success(let success):
                 self.reposList = success
@@ -88,27 +87,26 @@ class AppleReposViewController: UIViewController, Coordinating {
                 print("Error getting appleRepos data \(failure)")
             }
         }
-        
+
     }
-    
+
 }
 
 // MARK: - UITableViewDataSource
 extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView){
-        
+
         let offset = scrollView.contentOffset.y
         print("offset: \(offset)")
-        
+
         let heightVisibleScroll = scrollView.frame.size.height
         print("heightVisibleScroll: \(heightVisibleScroll)")
-        
+
         let heightTable = scrollView.contentSize.height
         print("heightTable: \(heightTable)")
-        
         if (offset > 0 && (offset + heightVisibleScroll) > (heightTable-heightVisibleScroll*0.2) && addedToView && !isEnd) {
-            
+
             addedToView = false
             self.pageNumber += 1
             self.appleReposService?.getRepos(itemsPerPage: itemsPerPage, pageNumber: pageNumber){ (result: Result<[AppleRepos], Error>) in
@@ -118,34 +116,32 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
                     DispatchQueue.main.async { [weak self] in
                         self?.tableView.reloadData()
                     }
-                    
                     if success.count < self.itemsPerPage {
                         self.isEnd = true
                     }
-                    
+
                 case .failure(let failure):
                     print("Failure: \(failure)")
                 }
             }
-            
+
         }
-        
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         addedToView = true
         return reposList.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell: AppleReposTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         let fullName = reposList[indexPath.row].fullName
-        
+
         cell.textLabel?.text = fullName
-        
+
         return cell
-        
+
     }
-    
+
 }
