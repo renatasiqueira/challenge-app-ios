@@ -1,14 +1,15 @@
 import Foundation
 
-
 struct EmojisAPICALLResult: Decodable {
-    let emojis: [Emoji]
-    
+    var emojis: [Emoji] = []
+    let persistenceEmoji: PersistenceEmojis = .init()
+
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let emojisAsDictionary = try container.decode([String: String].self)
         emojis = emojisAsDictionary.map { (key: String, value: String) in
-            Emoji(name: key, emojiUrl: URL(string: value)!)
+            persistenceEmoji.saveEmojisList(name: key, url: value)
+            return Emoji(name: key, emojiUrl: URL(string: value)!)
         }
     }
 }
