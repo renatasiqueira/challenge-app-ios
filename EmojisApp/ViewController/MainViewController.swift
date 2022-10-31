@@ -40,7 +40,7 @@ class BaseGenericViewController<View: BaseGenericView>: UIViewController {
 class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinating, EmojiPresenter {
 //class MainViewController: UIViewController, Coordinating {
     var coordinator: Coordinator?
-    var emojiStorage: EmojiStorage?
+    var emojiService: EmojiService?
     
     private var verticalStackView = UIStackView()
     private var horizontalSearchStackView = UIStackView()
@@ -52,6 +52,7 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
     private var appleReposButton = UIButton()
     private var searchButton = UIButton()
     private var searchBar = UISearchBar()
+    private var emojiImage = UIImageView()
     
     private var urlEmojiImage : String
   
@@ -131,16 +132,13 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         
         emojisListButton.addTarget(self, action: #selector(didTapEmojisList), for: .touchUpInside)
         
-        randomEmojisButton.addTarget(self, action: #selector(didTapRandomEmojis), for: .touchUpInside)
+        randomEmojisButton.addTarget(self, action: #selector(getRandomEmojis), for: .touchUpInside)
         
         avatarListButton.addTarget(self, action: #selector(didTapAvatarList), for: .touchUpInside)
         
         appleReposButton.addTarget(self, action: #selector(didTapAppleRepos), for: .touchUpInside)
         
-        print("Begin of code")
-        let url = URL(string: "https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png?v8")!
-        downloadImage(from: url)
-        print("End of code. The image will continue downloading in the background and it will be loaded when it ends.")
+        getRandomEmojis()
         
         
     }
@@ -159,24 +157,24 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         imageContainerView.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            verticalStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -30)
+    NSLayoutConstraint.activate([
+        verticalStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+        verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -30)
+    ])
+    
+    
+    NSLayoutConstraint.activate([
+        imageView.topAnchor.constraint(equalTo: imageContainerView.topAnchor), // constant: 70),
+        imageView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: -70),
+        imageView.centerXAnchor.constraint(equalTo: imageContainerView.centerXAnchor),
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+        imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45),
+       
+        
         ])
-        
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: imageContainerView.topAnchor), // constant: 70),
-            imageView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: -70),
-            imageView.centerXAnchor.constraint(equalTo: imageContainerView.centerXAnchor),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45),
-           
-        
-        ])
-        verticalStackView.spacing = 20;
-        horizontalSearchStackView.spacing = 20;
+    verticalStackView.spacing = 20;
+    horizontalSearchStackView.spacing = 20;
         
     }
     
@@ -192,38 +190,37 @@ class MainViewController: BaseGenericViewController<BaseGenericView>, Coordinati
         coordinator?.eventOccurred(with: .appleReposButton)
     }
     
-    @objc func didTapRandomEmojis() {
-        //coordinator?.eventOccurred(with: .randomEmojisButton)
-        let randomNumber = Int.random(in: 0 ... (emojiStorage?.emojis.count ?? 0))
-                
-        guard let emoji = emojiStorage?.emojis.item(at: randomNumber) else { return }
-                
-        let url = emoji.emojiUrl
-        downloadImage(from: url)
-    
-        }
-    
-    //Create a method with a completion handler to get the image data from your url
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-            URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-        }
-
-    
-    //Create a method to download the image (start the task)
-    func downloadImage(from url: URL) {
-        getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            // always update the UI from the main thread
-            DispatchQueue.main.async() { [weak self] in
-                self?.imageView.image = UIImage(data: data)
-            }
+    @objc func getRandomEmojis() {
+        emojiService?.getEmojisList{(result: Result<[Emoji], Error>) in
+        switch result {
+        case .success(let success):
+            self.imageView.downloaded(from: success.randomElement()!.emojiUrl)
+        case .failure(let failure):
+            print("Error: \(failure)")
         }
     }
+}
+    //Create a method with a completion handler to get the image data from your url
+//    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+//            URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+//        }
+//
+//
+//    //Create a method to download the image (start the task)
+//    func downloadImage(from url: URL) {
+//        getData(from: url) { data, response, error in
+//            guard let data = data, error == nil else { return }
+//
+//            // always update the UI from the main thread
+//            DispatchQueue.main.async() { [weak self] in
+//                self?.imageView.image = UIImage(data: data)
+//            }
+//        }
+//    }
 }
 
 extension MainViewController: EmojiStorageDelegate {
     func emojiListUpdated() {
-        didTapRandomEmojis()
+        getRandomEmojis()
     }
 }
