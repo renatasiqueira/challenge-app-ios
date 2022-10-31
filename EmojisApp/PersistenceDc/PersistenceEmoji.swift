@@ -3,11 +3,7 @@ import UIKit
 
 class PersistenceEmojis {
     var persistenceEmojisList: [NSManagedObject] = []
-    var persistenceContainer: NSPersistentContainer
-
-    init(persistenceContainer: NSPersistentContainer) {
-        self.persistenceContainer = persistenceContainer
-    }
+    var application: Application = .init()
 
     func saveEmojisList(name: String, url: String) {
 
@@ -15,7 +11,7 @@ class PersistenceEmojis {
 
             // 1
 
-            let managedContext = self.persistenceContainer.viewContext
+            let managedContext = self.application.persistentContainer.viewContext
 
             // 2
             let entity =
@@ -41,7 +37,7 @@ class PersistenceEmojis {
     func loadData() -> [NSManagedObject] {
         var array: [NSManagedObject] = []
 
-        let managedContext = self.persistenceContainer.viewContext
+        let managedContext = application.persistentContainer.viewContext
 
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
 

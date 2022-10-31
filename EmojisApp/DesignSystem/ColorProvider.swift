@@ -10,7 +10,7 @@ enum ColorProvider: String {
 }
 
 extension UIColor {
-    static func appColor(name: ColorProvider) -> UIColor?{
+    static func appColor(name: ColorProvider) -> UIColor? {
         return UIColor(named: name.rawValue)
     }
 }

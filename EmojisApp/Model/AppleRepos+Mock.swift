@@ -39,6 +39,6 @@ class MockedAppleReposStorage {
                                     AppleRepos(id: 36, fullName: "Repos 36", isPrivate: true),
                                     AppleRepos(id: 37, fullName: "Repos 37", isPrivate: true),
                                     AppleRepos(id: 38, fullName: "Repos 38", isPrivate: true),
-                                    AppleRepos(id: 39, fullName: "Repos 39", isPrivate: true),
+                                    AppleRepos(id: 39, fullName: "Repos 39", isPrivate: true)
     ]
 }

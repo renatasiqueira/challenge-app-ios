@@ -5,17 +5,17 @@ enum AvatarAPI {
 }
 
 extension AvatarAPI: APIProtocol {
-    var headers: [String : String] {
+    var headers: [String: String] {
         ["Contect-Type": "application/json"]
     }
-    
+
     var url: URL {
         switch self {
         case .getAvatars(let name):
             return URL(string: "\(Constants.baseURL)/users/\(name)")!
         }
     }
-    
+
     var method: Method {
         switch self {
         case .getAvatars:
@@ -23,4 +23,3 @@ extension AvatarAPI: APIProtocol {
         }
     }
 }
-

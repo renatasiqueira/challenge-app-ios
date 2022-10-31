@@ -6,61 +6,43 @@ class MainCoordinator: Coordinator {
     var navigationController: UINavigationController?
     var emojiService: EmojiService?
     var appleReposService: AppleReposService?
-    
+    var application: Application = .init()
+
     var liveAvatarStorage: LiveAvatarStorage = .init()
-    
-    
+
     init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
         self.emojiService = emojiService
-        
+
         self.avatarService = avatarService
-        
+
         self.appleReposService = appleReposService
     }
-    
+
     func eventOccurred(with type: Event) {
         switch type {
         case .emojisListButton:
-            let vc = EmojisListViewController()
-            vc.coordinator = self
-            vc.emojiService = emojiService
-            navigationController?.pushViewController(vc, animated: true)
+            let viewController = EmojisListViewController()
+            viewController.coordinator = self
+            viewController.emojiService = emojiService
+            navigationController?.pushViewController(viewController, animated: true)
         case .avatarListButton:
-            let vc = AvatarsListViewController()
-            vc.coordinator = self
-            vc.avatarService = liveAvatarStorage
-            navigationController?.pushViewController(vc, animated: true)
+            let viewController = AvatarsListViewController()
+            viewController.coordinator = self
+            viewController.avatarService = liveAvatarStorage
+            navigationController?.pushViewController(viewController, animated: true)
         case .appleReposButton:
-            let vc = AppleReposViewController()
-            vc.coordinator = self
-            vc.appleReposService = appleReposService
-            navigationController?.pushViewController(vc, animated: true)
+            let viewController = AppleReposViewController()
+            viewController.coordinator = self
+            viewController.appleReposService = appleReposService
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
-    
-    func start() {
-        let vc = MainViewController()
-        vc.coordinator = self
-        vc.emojiService = emojiService
-        vc.avatarService = liveAvatarStorage
-        // vc.appleReposService = appleReposService
-        navigationController?.setViewControllers([vc], animated: false)
-    }
-    
-}
 
-//extension MainCoordinator: EmojiStorageDelegate {
-//    func emojiListUpdated() {
-//        navigationController?.viewControllers.forEach {
-//            ($0 as? EmojiPresenter)?.emojiListUpdated()
-//        }
-//    }
-//}
-//
-//extension MainCoordinator: AvatarStorageDelegate {
-//    func avatarListUpdated() {
-//        navigationController?.viewControllers.forEach {
-//            ($0 as? AvatarPresenter)?.avatarListUpdated()
-//        }
-//    }
-//}
+    func start() {
+        let viewController = MainViewController()
+        viewController.coordinator = self
+        viewController.emojiService = emojiService
+        viewController.avatarService = liveAvatarStorage
+        navigationController?.setViewControllers([viewController], animated: false)
+    }
+}

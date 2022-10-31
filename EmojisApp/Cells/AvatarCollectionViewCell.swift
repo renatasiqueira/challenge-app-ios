@@ -20,7 +20,7 @@ class AvatarCollectionViewCell: UICollectionViewCell {
         downloadImage(from: url)
     }
 
-    func setupConstraints(){
+    func setupConstraints() {
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
@@ -40,14 +40,14 @@ class AvatarCollectionViewCell: UICollectionViewCell {
 
     }
 
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         dataTask?.cancel()
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
         dataTask?.resume()
     }
 
-    func downloadImage(from url: URL){
-        getData(from: url) { [weak self] data, response, error in
+    func downloadImage(from url: URL) {
+        getData(from: url) { [weak self] data, _, error in
             if error != nil {
                 DispatchQueue.main.async {
                     self?.avatarImageView.image = nil
@@ -55,7 +55,7 @@ class AvatarCollectionViewCell: UICollectionViewCell {
                 }
                 return
             }
-            DispatchQueue.main.async() { () in
+            DispatchQueue.main.async { () in
                 self?.avatarImageView.image = nil
                 self?.dataTask = nil
                 guard let data = data, error == nil else { return }

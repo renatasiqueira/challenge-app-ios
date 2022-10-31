@@ -1,38 +1,38 @@
 import UIKit
 
 class AvatarsListViewController: UIViewController, Coordinating {
-    
+
     var coordinator: Coordinator?
     var avatarService: LiveAvatarStorage?
-    
+
     var avatarList: [Avatar]  = []
-    
+
     lazy var collectionView: UICollectionView = {
         let collectionV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         return collectionV
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setUpViews()
         addViewsToSuperview()
         setUpConstraints()
-        
+
         collectionView.backgroundColor = .none
     }
-    
-    private func setUpViews(){
+
+    private func setUpViews() {
         setUpCollectionView()
     }
-    
-    private func addViewsToSuperview(){
+
+    private func addViewsToSuperview() {
         view.addSubview(collectionView)
     }
-    
-    private func setUpConstraints(){
+
+    private func setUpConstraints() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -40,34 +40,35 @@ class AvatarsListViewController: UIViewController, Coordinating {
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
-    
+
     private func setUpCollectionView() {
         title = "Avatars List"
         view.backgroundColor = .appColor(name: .primary)
         view.tintColor = .appColor(name: .secondary)
-        
+
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        
+
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 4
-        
+
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
-        
-        collectionView.register(AvatarCollectionViewCell.self, forCellWithReuseIdentifier: AvatarCollectionViewCell.reuseCellIdentifier)
-        
+
+        collectionView.register(AvatarCollectionViewCell.self,
+                                forCellWithReuseIdentifier: AvatarCollectionViewCell.reuseCellIdentifier)
+
         collectionView.delegate = self
         collectionView.dataSource = self
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         avatarService?.fetchAvatarList({ (result: [Avatar]) in
             self.avatarList = result
         })
-        
+
     }
-    
+
 }
 
 extension AvatarsListViewController: AvatarStorageDelegate {
@@ -78,21 +79,22 @@ extension AvatarsListViewController: AvatarStorageDelegate {
 
 extension AvatarsListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+
         return avatarList.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
         let cell: AvatarCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-        
+
         let url = avatarList[indexPath.row].avatarUrl
-        
+
         cell.setUpCell(url: url)
-        
+
         return cell
     }
 }
-
 
 extension AvatarsListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,

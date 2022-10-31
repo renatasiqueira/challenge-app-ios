@@ -17,21 +17,22 @@ enum APIError: Error {
 }
 
 class NetworkManager {
-    
+
     static func initialize() {
         URLSession.shared.configuration.urlCache?.diskCapacity = 100 * 1024 * 1024
-        print("Current disk cache capacity: \(String(describing: URLSession.shared.configuration.urlCache?.diskCapacity))")
+        print("Disk cache capacity: \(String(describing: URLSession.shared.configuration.urlCache?.diskCapacity))")
     }
-    
-    func executeNetworkCall<ResultType: Decodable>(_ call: APIProtocol, _ resultHandler: @escaping (Result<ResultType, Error>) -> Void) {
+
+    func executeNetworkCall<ResultType: Decodable>(_ call: APIProtocol,
+                                                   _ resultHandler: @escaping (Result<ResultType, Error>) -> Void) {
         let decoder = JSONDecoder()
         var request = URLRequest(url: call.url)
         request.httpMethod = call.method.rawValue
         call.headers.forEach { (key: String, value: String) in
             request.setValue(value, forHTTPHeaderField: key)
         }
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
             if let data = data {
                 if let result = try? decoder.decode(ResultType.self, from: data) {
                     resultHandler(Result<ResultType, Error>.success(result))
@@ -42,23 +43,21 @@ class NetworkManager {
                 resultHandler(Result<ResultType, Error>.failure(error))
             }
         }
-        
+
         task.resume()
     }
 }
 
-
-func downloadImageFromURL(from url: URL, _ resultHandler: @escaping (Result<UIImage,Error>) -> Void) {
-    let task = URLSession.shared.dataTask(with: url){ data, response, error in
+func downloadImageFromURL(from url: URL, _ resultHandler: @escaping (Result<UIImage, Error>) -> Void) {
+    let task = URLSession.shared.dataTask(with: url) { data, _, error in
         if let data = data {
             if let image = UIImage(data: data) {
                 resultHandler(Result<UIImage, Error>.success(image))
             }
-        } else if let error = error{
+        } else if let error = error {
             resultHandler(Result<UIImage, Error>.failure(error))
-            
+
         }
     }
     task.resume()
 }
-

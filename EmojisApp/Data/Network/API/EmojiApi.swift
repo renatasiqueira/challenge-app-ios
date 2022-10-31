@@ -6,11 +6,11 @@ enum EmojiAPI {
 }
 
 extension EmojiAPI: APIProtocol {
-    
+
     var url: URL {
         URL(string: "\(Constants.baseURL)/emojis")!
     }
-    
+
     var method: Method {
         switch self {
         case .getEmojis:
@@ -19,7 +19,7 @@ extension EmojiAPI: APIProtocol {
             return .post
         }
     }
-    
+
     var headers: [String: String] {
         ["Contect-Type": "application/json"]
     }

@@ -4,16 +4,11 @@ import UIKit
 
 class LiveEmojiStorage: EmojiService {
 
-    var emojis: [Emoji] = []
+    var emojisList: [Emoji] = []
 
     private var networkManager: NetworkManager = .init()
-    private let persistenceEmoji: PersistenceEmojis
+    private let persistenceEmoji: PersistenceEmojis = .init()
 
-    
-    init(persistentContainer: NSPersistentContainer) {
-        persistenceEmoji = .init(persistenceContainer: persistentContainer)
-    }
-    
     func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
         var fetchEmojis: [NSManagedObject] = []
         fetchEmojis = persistenceEmoji.loadData()
@@ -21,12 +16,13 @@ class LiveEmojiStorage: EmojiService {
         if !fetchEmojis.isEmpty {
             let emojisList = fetchEmojis.compactMap({ item -> Emoji? in
                 guard let itemName = item.value(forKey: "name") as? String else {return nil}
-                guard let itemUrl = item.value(forKey: "url") as? URL else {return nil}
+                guard let itemUrlString = item.value(forKey: "url") as? String else {return nil}
+                guard let itemUrl = URL(string: itemUrlString) else { return nil }
                 return Emoji(name: itemName, emojiUrl: itemUrl)
             })
 
-            print(emojis.count)
-            resultHandler(.success(emojis))
+            print(emojisList.count)
+            resultHandler(.success(emojisList))
         } else {
             networkManager.executeNetworkCall(EmojiAPI.getEmojis) { (result: Result< EmojisAPICALLResult, Error>) in
                 switch result {
