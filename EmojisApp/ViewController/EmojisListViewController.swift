@@ -1,16 +1,18 @@
 import Foundation
 import UIKit
 
-class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
+class EmojisListViewController: UIViewController, Coordinating {
 
     var coordinator: Coordinator?
     var emojiService: EmojiService?
     var emojisList: [Emoji] = []
 
-    lazy var collectionView: UICollectionView = {
-        let collectionV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-        return collectionV
-    }()
+    var viewModel: EmojisViewModel?
+
+//    lazy var collectionView: UICollectionView = {
+//        let collectionV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+//        return collectionV
+//    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,12 +80,6 @@ class EmojisListViewController: UIViewController, Coordinating, EmojiPresenter {
             }
         })
 
-    }
-}
-
-extension EmojisListViewController: EmojiStorageDelegate {
-    func emojiListUpdated() {
-        collectionView.reloadData()
     }
 }
 

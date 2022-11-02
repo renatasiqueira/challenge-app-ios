@@ -1,4 +1,5 @@
 import UIKit
+import CoreData
 import Alamofire
 
 class MainViewController: UIViewController, Coordinating {
@@ -22,6 +23,9 @@ class MainViewController: UIViewController, Coordinating {
     private var emojiImage = UIImageView()
 
     private var urlEmojiImage: String
+
+    var viewModel: MainViewModel?
+    var application: Application?
 
     // 1 - CREATE VIEWS
 
@@ -53,13 +57,24 @@ class MainViewController: UIViewController, Coordinating {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        viewModel?.emojiImageUrl.bind(listiner: { url in
+            guard let url = url else {return}
+            self.imageView.stopLoading()
+            let dataTask = self.viewModel.createDownloadDataTask(from: url)
+            dataTask.resume()
+
+        })
+
         setUpViews()
         addViewToSuperView()
         setUpConstraints()
 
     }
 
-    // 1 - Setup the Views
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
     private func setUpViews() {
         view.backgroundColor = .appColor(name: .suface)
         view.tintColor = .appColor(name: .onPrimary)

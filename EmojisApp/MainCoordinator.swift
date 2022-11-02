@@ -2,47 +2,46 @@ import Foundation
 import UIKit
 
 class MainCoordinator: Coordinator {
-    var avatarService: AvatarService?
+
     var navigationController: UINavigationController?
-    var emojiService: EmojiService?
-    var appleReposService: AppleReposService?
+    var mainViewModel: MainViewModel?
+    var emojisViewModel: EmojisViewModel?
+    var avatarViewModel: AvatarViewModel?
+    var appleReposViewModel: AppleReposViewModel?
+
     var application: Application = .init()
 
-    var liveAvatarStorage: LiveAvatarStorage = .init()
-
     init(emojiService: EmojiService, avatarService: AvatarService, appleReposService: AppleReposService) {
-        self.emojiService = emojiService
+        self.appleReposViewModel = AppleReposViewModel(appleReposService: appleReposService)
+        self.avatarViewModel = AvatarViewModel(avatarService: avatarService)
+        self.emojisViewModel = EmojisViewModel(emojiService: emojiService)
+        self.mainViewModel = MainViewModel(emojiService: emojiService, avatarService: avatarService)
 
-        self.avatarService = avatarService
-
-        self.appleReposService = appleReposService
-    }
-
-    func eventOccurred(with type: Event) {
-        switch type {
-        case .emojisListButton:
-            let viewController = EmojisListViewController()
-            viewController.coordinator = self
-            viewController.emojiService = emojiService
-            navigationController?.pushViewController(viewController, animated: true)
-        case .avatarListButton:
-            let viewController = AvatarsListViewController()
-            viewController.coordinator = self
-            viewController.avatarService = liveAvatarStorage
-            navigationController?.pushViewController(viewController, animated: true)
-        case .appleReposButton:
-            let viewController = AppleReposViewController()
-            viewController.coordinator = self
-            viewController.appleReposService = appleReposService
-            navigationController?.pushViewController(viewController, animated: true)
+        func eventOccurred(with type: Event) {
+            switch type {
+            case .emojisListButton:
+                let viewController = EmojisListViewController()
+                viewController.coordinator = self
+                viewController.viewModel = emojisViewModel
+                navigationController?.pushViewController(viewController, animated: true)
+            case .avatarListButton:
+                let viewController = AvatarsListViewController()
+                viewController.coordinator = self
+                viewController.viewModel = avatarViewModel
+                navigationController?.pushViewController(viewController, animated: true)
+            case .appleReposButton:
+                let viewController = AppleReposViewController()
+                viewController.coordinator = self
+                viewController.viewModel = appleReposViewModel
+                navigationController?.pushViewController(viewController, animated: true)
+            }
         }
-    }
 
-    func start() {
-        let viewController = MainViewController()
-        viewController.coordinator = self
-        viewController.emojiService = emojiService
-        viewController.avatarService = liveAvatarStorage
-        navigationController?.setViewControllers([viewController], animated: false)
+        func start() {
+            let viewController = MainViewController()
+            viewController.coordinator = self
+            viewController.viewModel = mainViewModel
+            navigationController?.setViewControllers([viewController], animated: false)
+        }
     }
 }

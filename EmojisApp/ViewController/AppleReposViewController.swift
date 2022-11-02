@@ -1,5 +1,4 @@
 import UIKit
-import CoreData
 
 class AppleReposViewController: UIViewController, Coordinating {
 
@@ -9,7 +8,7 @@ class AppleReposViewController: UIViewController, Coordinating {
 
     private var tableView: UITableView
 
-    private var reposList: [AppleRepos]  = []
+    private var appleRepos: [AppleRepos]  = []
 
     private var itemsPerPage: Int = 10
     private var pageNumber: Int = 1
@@ -77,7 +76,7 @@ class AppleReposViewController: UIViewController, Coordinating {
 
             switch result {
             case .success(let success):
-                self.reposList = success
+                self.appleRepos = success
                 DispatchQueue.main.async { [weak self] in
                     self?.tableView.reloadData()
                 }
@@ -107,42 +106,22 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
             >
             (heightTable-heightVisibleScroll*0.2) && addedToView && !isEnd {
 
-            addedToView = false
-            self.pageNumber += 1
-            self.appleReposService?.getRepos(itemsPerPage: itemsPerPage,
-                                             pageNumber: pageNumber) { (result: Result<[AppleRepos], Error>) in
-                switch result {
-                case .success(let success):
-                    self.reposList.append(contentsOf: success)
-                    DispatchQueue.main.async { [weak self] in
-                        self?.tableView.reloadData()
-                    }
-                    if success.count < self.itemsPerPage {
-                        self.isEnd = true
-                    }
-
-                case .failure(let failure):
-                    print("Failure: \(failure)")
-                }
-            }
-
         }
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        addedToView = true
-        return reposList.count
-    }
+}
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return appleRepos.count
+}
 
-        let cell: AppleReposTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        let fullName = reposList[indexPath.row].fullName
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        cell.textLabel?.text = fullName
+    let cell: AppleReposTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+    let reposApple = appleRepos[indexPath.row]
 
-        return cell
+    cell.textLabel?.text = reposApple.fullName
 
-    }
+    return cell
 
 }

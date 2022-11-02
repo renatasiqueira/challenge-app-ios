@@ -7,10 +7,25 @@ class AvatarsListViewController: UIViewController, Coordinating {
 
     var avatarList: [Avatar]  = []
 
-    lazy var collectionView: UICollectionView = {
-        let collectionV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        return collectionV
-    }()
+    private var collectionView: UICollectionView
+
+    init() {
+
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 4
+
+        collectionView = .init(frame: .zero, collectionViewLayout: layout)
+
+        super.init(nibName: nil, bundle: nil)
+
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +35,22 @@ class AvatarsListViewController: UIViewController, Coordinating {
         setUpConstraints()
 
         collectionView.backgroundColor = .none
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel?.avatar.bind(listener: { [weak self] avatars in
+            guard
+                let self = self,
+                let avatars = avatars else {return}
+            self.avatarList = avatars
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+
+        })
+
+        viewModel?.getAvatar()
     }
 
     private func setUpViews() {
@@ -39,20 +70,11 @@ class AvatarsListViewController: UIViewController, Coordinating {
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+
     }
 
     private func setUpCollectionView() {
         title = "Avatars List"
-        view.backgroundColor = .appColor(name: .primary)
-        view.tintColor = .appColor(name: .secondary)
-
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 4
-
-        collectionView = .init(frame: .zero, collectionViewLayout: layout)
 
         collectionView.register(AvatarCollectionViewCell.self,
                                 forCellWithReuseIdentifier: AvatarCollectionViewCell.reuseCellIdentifier)
@@ -61,20 +83,10 @@ class AvatarsListViewController: UIViewController, Coordinating {
         collectionView.dataSource = self
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        avatarService?.fetchAvatarList({ (result: [Avatar]) in
-            self.avatarList = result
-        })
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 
-}
-
-extension AvatarsListViewController: AvatarStorageDelegate {
-    func avatarListUpdated() {
-        collectionView.reloadData()
-    }
 }
 
 extension AvatarsListViewController: UICollectionViewDataSource {
@@ -93,6 +105,21 @@ extension AvatarsListViewController: UICollectionViewDataSource {
         cell.setUpCell(url: url)
 
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let avatar = self.avatarList[indexPath.row]
+        let message: String = "Do you want to delete \(avatar.login)?"
+        let alert = UIAlertAction(title: "Deleting \(avatar.login)...", message: message, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_: UIAlertAction) in
+            self.viewModel?.deleteAvatar(avatar: avatar, at: indexPath.row)
+
+        }))
+
+        self.present(alert, animated: true, completion: nil)
+
     }
 }
 
