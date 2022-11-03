@@ -13,13 +13,13 @@ public class MainViewModel {
         self.emojiService = emojiService
         self.avatarService = avatarService
 
-        self.searchQuery.bind { [weak self] in
+        searchQuery.bind { [weak self] _ in
             self?.searchAvatar()
         }
     }
 
     func getRandom() {
-        emojiService?.getEmojisList {(result: Result<[Emoji], Error>) in
+        emojiService?.getEmojisList { (result: Result<[Emoji], Error>) in
             switch result {
             case .success(let success):
                 guard let url = success.randomElement()?.emojiUrl else { return }
@@ -35,8 +35,8 @@ public class MainViewModel {
         avatarService?.getAvatar(searchText: searchQuery, { (result: Result<Avatar, Error>) in
             switch result {
             case .success(let success):
-                let avatar: success.avatarUrl
-                self.emojiImageUrl.value = avatarUrl
+                let avatar = success.avatarUrl
+                self.emojiImageUrl.value = avatar
             case .failure(let failure):
                 print("Error: \(failure)")
             }

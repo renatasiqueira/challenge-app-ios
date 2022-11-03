@@ -8,7 +8,7 @@ public class AppleReposViewModel {
     var appleReposService: AppleReposService?
 
     var appleReposList: Box<[AppleRepos]?> = Box([])
-    var isEnd: Box<Bool> = Bool(false)
+    var isEnd: Box<Bool> = Box(false)
 
     init(appleReposService: AppleReposService) {
         self.appleReposService = appleReposService
@@ -27,6 +27,6 @@ public class AppleReposViewModel {
             case .failure(let failure):
                 print("Failure: \(failure)")
             }
-        })
+        }
     }
 }

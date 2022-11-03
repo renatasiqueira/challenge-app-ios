@@ -4,14 +4,16 @@ class AppleReposViewController: UIViewController, Coordinating {
 
     var coordinator: Coordinator?
 
-    var appleReposService: AppleReposService?
-
     private var tableView: UITableView
 
-    private var appleRepos: [AppleRepos]  = []
+    var appleRepos: [AppleRepos]  = []
+
+    var viewModel: AppleReposViewModel?
 
     private var itemsPerPage: Int = 10
     private var pageNumber: Int = 1
+
+    var mockedAppleReposDataSource: MockAppleReposDataSource?
 
     private var addedToView: Bool = false
     private var isEnd: Bool = false
@@ -71,26 +73,35 @@ class AppleReposViewController: UIViewController, Coordinating {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        appleReposService?.getRepos(itemsPerPage: itemsPerPage,
-                                    pageNumber: pageNumber) { (result: Result<[AppleRepos], Error>) in
+        viewModel?.appleReposList.bind(listener: {[weak self] newAppleRepos in
+            guard let newAppleRepos = newAppleRepos else {return}
+            self?.appleRepos = newAppleRepos
 
-            switch result {
-            case .success(let success):
-                self.appleRepos = success
-                DispatchQueue.main.async { [weak self] in
-                    self?.tableView.reloadData()
-                }
-            case .failure(let failure):
-                print("Error getting appleRepos data \(failure)")
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
             }
+
         }
 
-    }
-
+        )}
 }
 
 // MARK: - UITableViewDataSource
 extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return appleRepos.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell: AppleReposTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        let reposApple = appleRepos[indexPath.row]
+
+        cell.textLabel?.text = reposApple.fullName
+
+        return cell
+
+    }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
@@ -111,17 +122,4 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
 
 }
 
-func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return appleRepos.count
-}
 
-func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-    let cell: AppleReposTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-    let reposApple = appleRepos[indexPath.row]
-
-    cell.textLabel?.text = reposApple.fullName
-
-    return cell
-
-}

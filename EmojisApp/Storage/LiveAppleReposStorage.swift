@@ -7,7 +7,7 @@ class LiveAppleReposStorage: AppleReposService {
 
     private var networkManager: NetworkManager = .init()
 
-    weak var delegate: ReposStorageDelegate?
+//    weak var delegate: ReposStorageDelegate?
 
     func getRepos(itemsPerPage: Int, pageNumber: Int, _ resultHandler:
                   @escaping (Result<[AppleRepos], Error>) -> Void) {

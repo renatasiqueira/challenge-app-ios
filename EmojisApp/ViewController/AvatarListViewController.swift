@@ -3,9 +3,11 @@ import UIKit
 class AvatarsListViewController: UIViewController, Coordinating {
 
     var coordinator: Coordinator?
-    var avatarService: LiveAvatarStorage?
+    // var avatarService: LiveAvatarStorage?
 
     var avatarList: [Avatar]  = []
+
+    var viewModel: AvatarViewModel?
 
     private var collectionView: UICollectionView
 
@@ -39,10 +41,9 @@ class AvatarsListViewController: UIViewController, Coordinating {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel?.avatar.bind(listener: { [weak self] avatars in
-            guard
-                let self = self,
-                let avatars = avatars else {return}
+        self.viewModel?.avatarList.bind(listener: { [weak self] avatars in
+            guard let self = self,
+                  let avatars = avatars else {return}
             self.avatarList = avatars
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -110,7 +111,7 @@ extension AvatarsListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let avatar = self.avatarList[indexPath.row]
         let message: String = "Do you want to delete \(avatar.login)?"
-        let alert = UIAlertAction(title: "Deleting \(avatar.login)...", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Deleting \(avatar.login)...", message: message, preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .default))
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_: UIAlertAction) in

@@ -4,15 +4,34 @@ import UIKit
 class EmojisListViewController: UIViewController, Coordinating {
 
     var coordinator: Coordinator?
-    var emojiService: EmojiService?
+    // var emojiService: EmojiService?
     var emojisList: [Emoji] = []
 
     var viewModel: EmojisViewModel?
 
-//    lazy var collectionView: UICollectionView = {
-//        let collectionV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-//        return collectionV
-//    }()
+    private var collectionView: UICollectionView
+
+    init() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 4
+
+        collectionView = .init(frame: .zero, collectionViewLayout: layout)
+
+        super.init(nibName: nil, bundle: nil)
+
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    //    lazy var collectionView: UICollectionView = {
+    //        let collectionV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    //        return collectionV
+    //    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +40,7 @@ class EmojisListViewController: UIViewController, Coordinating {
         addViewToSuperView()
         setUpConstraints()
 
-        collectionView.backgroundColor = .none
+        // collectionView.backgroundColor = .none
     }
 
     private func setUpViews() {
@@ -68,18 +87,14 @@ class EmojisListViewController: UIViewController, Coordinating {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        emojiService?.getEmojisList({ (result: Result<[Emoji], Error>) in
-            switch result {
-            case .success(let success):
-                self.emojisList = success
-                DispatchQueue.main.async { [weak self] in
-                    self?.collectionView.reloadData()
-                }
-            case .failure(let failure):
-                print("Error: \(failure)")
+        viewModel?.emojisList.bind(listener: { [weak self] arrayEmojis in
+            guard let arrayEmojis = arrayEmojis else {return}
+            self?.emojisList = arrayEmojis
+            DispatchQueue.main.async { [weak self] in
+                self?.collectionView.reloadData()
             }
         })
-
+        viewModel?.getEmojis()
     }
 }
 

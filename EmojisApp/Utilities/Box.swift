@@ -1,13 +1,12 @@
 import Foundation
 
-
-final class Box {
-    typealias Listiner = (T) -> Void
-    var listiner: Listiner?
+final class Box<T> {
+    typealias Listener = (T) -> Void
+    var listener: Listener?
 
     var value: T {
         didSet {
-            listiner?(value)
+            listener?(value)
         }
     }
 
@@ -15,8 +14,8 @@ final class Box {
         self.value = value
     }
 
-    func bind(listiner: Listiner?) {
-        self.listiner = listiner
-        listiner?(value)
+    func bind(listener: Listener?) {
+        self.listener = listener
+        listener?(value)
     }
 }

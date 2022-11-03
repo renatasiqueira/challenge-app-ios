@@ -57,11 +57,10 @@ class MainViewController: UIViewController, Coordinating {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel?.emojiImageUrl.bind(listiner: { url in
+        viewModel?.emojiImageUrl.bind(listener: { url in
             guard let url = url else {return}
             self.imageView.stopLoading()
-            let dataTask = self.viewModel.createDownloadDataTask(from: url)
-            dataTask.resume()
+          self.imageView.downloaded(from: url)
 
         })
 
@@ -161,28 +160,31 @@ class MainViewController: UIViewController, Coordinating {
     }
 
     @objc func getRandomEmojis() {
-        emojiService?.getEmojisList { (result: Result<[Emoji], Error>) in
-            switch result {
-            case .success(let success):
-                guard let url = success.randomElement()?.emojiUrl else { return }
-                self.imageView.downloaded(from: url)
-            case .failure(let failure):
-                print("ErrorGetRandomEmojis: \(failure)")
-            }
-        }
+        viewModel?.getRandom()
+        
+//        emojiService?.getEmojisList { (result: Result<[Emoji], Error>)
+//            switch result {
+//            case .success(let success):
+//                guard let url = success.randomElement()?.emojiUrl else { return }
+//                self.imageView.downloaded(from: url)
+//            case .failure(let failure):
+//                print("ErrorGetRandomEmojis: \(failure)")
+//            }
+//        }
     }
 
     @objc func getSearchAvatar() {
+        viewModel?.searchQuery.value = searchBar.text
 
-        guard let avatarName = searchBar.text else {return}
-        avatarService.getAvatar(searchText: avatarName, {(result: Result<Avatar, Error>) in
-            switch result {
-            case .success(let sucess):
-                self.imageView.downloaded(from: sucess.avatarUrl)
-            case.failure(let failure):
-                print("ErrorGetSearchAvatar: \(failure)")
-            }
-        })
+//        guard let avatarName = searchBar.text else {return}
+//        avatarService.getAvatar(searchText: avatarName, {(result: Result<Avatar, Error>) in
+//            switch result {
+//            case .success(let sucess):
+//                self.imageView.downloaded(from: sucess.avatarUrl)
+//            case.failure(let failure):
+//                print("ErrorGetSearchAvatar: \(failure)")
+//            }
+//        })
     }
 
 }
