@@ -7,17 +7,21 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class BaseGenericView: UIView {
-    required init() {
+
+    var disposeBag = DisposeBag()
+
+    override init(frame: CGRect) {
         super.init(frame: .zero)
-        setupView()
+        createViews()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        fatalError()
+        fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {}
+    func createViews() {}
 }

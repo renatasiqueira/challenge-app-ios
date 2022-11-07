@@ -161,30 +161,10 @@ class MainViewController: UIViewController, Coordinating {
 
     @objc func getRandomEmojis() {
         viewModel?.getRandom()
-        
-//        emojiService?.getEmojisList { (result: Result<[Emoji], Error>)
-//            switch result {
-//            case .success(let success):
-//                guard let url = success.randomElement()?.emojiUrl else { return }
-//                self.imageView.downloaded(from: url)
-//            case .failure(let failure):
-//                print("ErrorGetRandomEmojis: \(failure)")
-//            }
-//        }
     }
 
     @objc func getSearchAvatar() {
         viewModel?.searchQuery.value = searchBar.text
-
-//        guard let avatarName = searchBar.text else {return}
-//        avatarService.getAvatar(searchText: avatarName, {(result: Result<Avatar, Error>) in
-//            switch result {
-//            case .success(let sucess):
-//                self.imageView.downloaded(from: sucess.avatarUrl)
-//            case.failure(let failure):
-//                print("ErrorGetSearchAvatar: \(failure)")
-//            }
-//        })
     }
 
 }

@@ -73,21 +73,23 @@ class AppleReposViewController: UIViewController, Coordinating {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        viewModel?.appleReposList.bind(listener: {[weak self] newAppleRepos in
+        viewModel?.appleReposList.bind(listener: { [weak self] newAppleRepos in
             guard let newAppleRepos = newAppleRepos else {return}
             self?.appleRepos = newAppleRepos
 
             DispatchQueue.main.async { [weak self] in
                 self?.tableView.reloadData()
             }
-
         }
+        )
+        viewModel?.getRepos()
+    }
 
-        )}
 }
 
 // MARK: - UITableViewDataSource
 extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return appleRepos.count
     }
@@ -113,13 +115,15 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
 
         let heightTable = scrollView.contentSize.height
         print("heightTable: \(heightTable)")
+
         if offset > 0 && (offset + heightVisibleScroll)
             >
             (heightTable-heightVisibleScroll*0.2) && addedToView && !isEnd {
+            addedToView = false
+            viewModel?.getRepos()
 
         }
+
     }
 
 }
-
-

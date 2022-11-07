@@ -4,7 +4,7 @@ import UIKit
 class EmojisListViewController: UIViewController, Coordinating {
 
     var coordinator: Coordinator?
-    // var emojiService: EmojiService?
+
     var emojisList: [Emoji] = []
 
     var viewModel: EmojisViewModel?
@@ -28,10 +28,6 @@ class EmojisListViewController: UIViewController, Coordinating {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //    lazy var collectionView: UICollectionView = {
-    //        let collectionV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    //        return collectionV
-    //    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,44 +116,25 @@ extension EmojisListViewController: UICollectionViewDataSource {
     }
 }
 
-class MockedDataSource: NSObject, UICollectionViewDataSource {
-    var mockedEmojis: MockedEmojiStorage = .init()
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
-        return mockedEmojis.emojis.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        let cell: EmojiCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-
-        cell.setUpCell(url: mockedEmojis.emojis[indexPath.row].emojiUrl)
-
-        return cell
-    }
-
-}
 
 // - Collection's Delegate Flow Layout
-extension EmojisListViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-
-        return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else {return .zero}
-        let widthPerItem = collectionView.frame.width / 3 - layout.minimumInteritemSpacing
-
-        return CGSize(width: widthPerItem - 8, height: widthPerItem)
-    }
-
-}
+//extension EmojisListViewController: UICollectionViewDelegateFlowLayout {
+//
+//    func collectionView(_ collectionView: UICollectionView,
+//                        layout collectionViewLayout: UICollectionViewLayout,
+//                        insetForSectionAt section: Int) -> UIEdgeInsets {
+//
+//        return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView,
+//                        layout collectionViewLayout: UICollectionViewLayout,
+//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else {return .zero}
+//        let widthPerItem = collectionView.frame.width / 5 - layout.minimumInteritemSpacing
+//
+//        return CGSize(width: widthPerItem - 8, height: widthPerItem)
+//    }
+//
+//}

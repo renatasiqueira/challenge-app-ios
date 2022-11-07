@@ -1,9 +1,10 @@
 import UIKit
+import Alamofire
 
 class EmojiCollectionViewCell: UICollectionViewCell {
 
-    private var emojiImageView: UIImageView
-    private var dataTask: URLSessionDataTask?
+     private let emojiImageView: UIImageView
+     var dataTask: URLSessionDataTask?
 
     override init(frame: CGRect) {
         emojiImageView = .init(frame: .zero)
@@ -17,7 +18,9 @@ class EmojiCollectionViewCell: UICollectionViewCell {
     }
 
     func setUpCell(url: URL) {
-        downloadImage(from: url)
+        // downloadImage(from: url)
+        dataTask = emojiImageView.createDownloadDataTask(from: url)
+        dataTask?.resume()
     }
 
     func setupConstraints() {
@@ -40,27 +43,4 @@ class EmojiCollectionViewCell: UICollectionViewCell {
 
     }
 
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        dataTask?.cancel()
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-        dataTask?.resume()
-    }
-
-    func downloadImage(from url: URL) {
-        getData(from: url) { [weak self] data, _, error in
-            if error != nil {
-                DispatchQueue.main.async {
-                    self?.emojiImageView.image = nil
-                    self?.dataTask = nil
-                }
-                return
-            }
-            DispatchQueue.main.async { () in
-                self?.emojiImageView.image = nil
-                self?.dataTask = nil
-                guard let data = data, error == nil else { return }
-                self?.emojiImageView.image = UIImage(data: data)
-            }
-        }
-    }
 }

@@ -7,12 +7,17 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class BaseGenericViewController<View: BaseGenericView>: UIViewController {
 
+    var disposeBag = DisposeBag()
+
     var genericView: View {
-        guard let view = view as? View else { fatalError("Error")}
-        return view
+
+        // swiftlint:disable:next force_cast
+        view as! View
+
     }
 
     override func loadView() {

@@ -17,7 +17,6 @@ class MainCoordinator: Coordinator {
         self.emojisViewModel = EmojisViewModel(emojiService: emojiService)
         self.mainViewModel = MainViewModel(emojiService: emojiService, avatarService: avatarService)
 
-
     }
     func eventOccurred(with type: Event) {
         switch type {
