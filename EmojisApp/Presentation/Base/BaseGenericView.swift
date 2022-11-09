@@ -13,14 +13,14 @@ class BaseGenericView: UIView {
 
     var disposeBag = DisposeBag()
 
-    override init(frame: CGRect) {
+    required init() {
         super.init(frame: .zero)
         createViews()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
     }
 
     func createViews() {}

@@ -60,7 +60,7 @@ class MainViewController: UIViewController, Coordinating {
         viewModel?.emojiImageUrl.bind(listener: { url in
             guard let url = url else {return}
             self.imageView.stopLoading()
-          self.imageView.downloaded(from: url)
+            self.imageView.downloadedImage(from: url)
 
         })
 

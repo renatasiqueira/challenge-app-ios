@@ -77,8 +77,8 @@ class AvatarsListViewController: UIViewController, Coordinating {
     private func setUpCollectionView() {
         title = "Avatars List"
 
-        collectionView.register(AvatarCollectionViewCell.self,
-                                forCellWithReuseIdentifier: AvatarCollectionViewCell.reuseCellIdentifier)
+        collectionView.register(CellsCollectionView.self,
+                                forCellWithReuseIdentifier: CellsCollectionView.reuseCellIdentifier)
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -99,7 +99,7 @@ extension AvatarsListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell: AvatarCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+        let cell: CellsCollectionView = collectionView.dequeueReusableCell(for: indexPath)
 
         let url = avatarList[indexPath.row].avatarUrl
 

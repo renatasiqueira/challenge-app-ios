@@ -1,5 +1,4 @@
 import Foundation
-import UIKit.UIImage
 
 public class AvatarViewModel {
     var avatarService: AvatarService?

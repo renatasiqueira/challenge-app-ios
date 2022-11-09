@@ -10,9 +10,8 @@ import UIKit
 
 class EmojisView: BaseGenericView {
     var collectionView: UICollectionView
-    private var emojiImageView: UIImageView
 
-    override init(frame: CGRect) {
+    required init() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
 
@@ -20,8 +19,7 @@ class EmojisView: BaseGenericView {
         layout.minimumInteritemSpacing = 4
 
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
-        emojiImageView = .init(frame: .zero)
-        super.init(frame: frame)
+        super.init()
     }
 
     required init?(coder: NSCoder) {
@@ -35,8 +33,8 @@ class EmojisView: BaseGenericView {
     }
 
     private func setUpViews() {
-        collectionView.register(EmojiCollectionViewCell.self,
-                                forCellWithReuseIdentifier: EmojiCollectionViewCell.reuseCellIdentifier)
+        collectionView.register(CellsCollectionView.self,
+                                forCellWithReuseIdentifier: CellsCollectionView.reuseCellIdentifier)
 
         collectionView.delegate = self
 

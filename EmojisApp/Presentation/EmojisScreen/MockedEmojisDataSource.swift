@@ -19,7 +19,7 @@ class MockedDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell: EmojiCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+        let cell: CellsCollectionView = collectionView.dequeueReusableCell(for: indexPath)
 
         cell.setUpCell(url: mockedEmojis.emojis[indexPath.row].emojiUrl)
 
