@@ -1,42 +1,25 @@
 import UIKit
 
-class AvatarsListViewController: UIViewController, Coordinating {
+public protocol AvatarsListViewControllerDelegate: AnyObject {
+    func navigateToMainPage()
+}
+
+class AvatarsListViewController: BaseGenericViewController<AvatarListView> {
+
+    public weak var delegate: AvatarsListViewControllerDelegate?
 
     var coordinator: Coordinator?
-    // var avatarService: LiveAvatarStorage?
 
-    var avatarList: [Avatar]  = []
+    var avatarList: [Avatar] = []
 
     var viewModel: AvatarViewModel?
 
-    private var collectionView: UICollectionView
-
-    init() {
-
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 4
-
-        collectionView = .init(frame: .zero, collectionViewLayout: layout)
-
-        super.init(nibName: nil, bundle: nil)
-
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Avatar List"
 
-        setUpViews()
-        addViewsToSuperview()
-        setUpConstraints()
-
-        collectionView.backgroundColor = .none
+        genericView.collectionView.dataSource = self
+        genericView.collectionView.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +29,7 @@ class AvatarsListViewController: UIViewController, Coordinating {
                   let avatars = avatars else {return}
             self.avatarList = avatars
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                self.genericView.collectionView.reloadData()
             }
 
         })
@@ -54,43 +37,9 @@ class AvatarsListViewController: UIViewController, Coordinating {
         viewModel?.getAvatar()
     }
 
-    private func setUpViews() {
-        setUpCollectionView()
-    }
-
-    private func addViewsToSuperview() {
-        view.addSubview(collectionView)
-    }
-
-    private func setUpConstraints() {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-
-    }
-
-    private func setUpCollectionView() {
-        title = "Avatars List"
-
-        collectionView.register(CellsCollectionView.self,
-                                forCellWithReuseIdentifier: CellsCollectionView.reuseCellIdentifier)
-
-        collectionView.delegate = self
-        collectionView.dataSource = self
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-
 }
 
-extension AvatarsListViewController: UICollectionViewDataSource {
+extension AvatarsListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return avatarList.count

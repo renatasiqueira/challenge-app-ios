@@ -1,9 +1,10 @@
 import UIKit
 
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+
+    var mainPageCoordinator: MainPageCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
@@ -14,16 +15,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let navVC = UINavigationController()
 
-        let coordinator = MainCoordinator(emojiService: LiveEmojiStorage(),
-                                          avatarService: LiveAvatarStorage(),
-                                          appleReposService: LiveAppleReposStorage())
-        coordinator.navigationController = navVC
-
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navVC
         window?.makeKeyAndVisible()
 
-        coordinator.start()
+        let application: Application = .init()
+
+        mainPageCoordinator = MainPageCoordinator(navigationController: navVC, application: application)
+
+        mainPageCoordinator?.start()
+        window?.makeKeyAndVisible()
 
     }
 

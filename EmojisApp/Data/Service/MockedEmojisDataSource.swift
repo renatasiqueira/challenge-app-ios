@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class MockedDataSource: NSObject, UICollectionViewDataSource {
-    var mockedEmojis: MockedEmojiStorage = .init()
+    var mockedEmojis: MockedEmojiService = .init()
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
@@ -21,7 +21,9 @@ class MockedDataSource: NSObject, UICollectionViewDataSource {
 
         let cell: CellsCollectionView = collectionView.dequeueReusableCell(for: indexPath)
 
-        cell.setUpCell(url: mockedEmojis.emojis[indexPath.row].emojiUrl)
+        let url = mockedEmojis.emojis[indexPath.row].emojiUrl
+
+        cell.setUpCell(url: url)
 
         return cell
     }

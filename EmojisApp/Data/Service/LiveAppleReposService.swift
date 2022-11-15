@@ -1,9 +1,9 @@
 import Foundation
 import CoreData
 
-class LiveAppleReposStorage: AppleReposService {
+class LiveAppleReposService: AppleReposService {
 
-    var appleRepos: [AppleRepos] = []
+    // var appleRepos: [AppleRepos] = []
 
     private var networkManager: NetworkManager = .init()
 

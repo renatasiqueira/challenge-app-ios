@@ -3,9 +3,9 @@ import UIKit
 
 class PersistenceAppleRepos {
     var persistenceAppleReposList: [NSManagedObject] = []
-    var persistenceContainer: NSPersistentContainer
+    var persistentContainer: NSPersistentContainer
 
-    init(persistenceContainer: NSPersistentContainer) {
-        self.persistenceContainer = persistenceContainer
+    init(persistentContainer: NSPersistentContainer) {
+        self.persistentContainer = persistentContainer
     }
 }

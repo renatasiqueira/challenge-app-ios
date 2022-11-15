@@ -29,6 +29,5 @@ class CellsTableView: UITableViewCell {
         self.textLabel?.text = String(splittedString[splittedString.count-1])
         self.backgroundColor = .clear
 
-        //self.textLabel?.textColor = UIColor.appColor(name: .safeBar)
     }
 }

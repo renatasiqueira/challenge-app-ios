@@ -25,7 +25,7 @@ class CellsCollectionView: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     func setUpCell(url: URL) {
-        self.imageView.downloadedImage(from: url)
+        self.imageView.createDownloadDataTask(from: url)
     }
 
     func setUpConstraints() {

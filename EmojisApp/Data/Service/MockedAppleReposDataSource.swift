@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MockAppleReposDataSource: NSObject, UITableViewDataSource {
+class MockedAppleReposDataSource: NSObject, UITableViewDataSource {
     var mockedRepos: MockedAppleReposStorage = .init()
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
