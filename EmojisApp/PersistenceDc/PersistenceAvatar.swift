@@ -2,41 +2,18 @@ import UIKit
 import CoreData
 
 class PersistenceAvatar {
-    var persistenceAvatarList: [NSManagedObject] = []
-    var application: Application = .init()
+    var avatarsPersistenceList: [NSManagedObject] = []
 
-    let managedContext: NSManagedObjectContext?
+    private let persistentContainer: NSPersistentContainer
 
-    init() {
-        managedContext = application.persistentContainer.viewContext
+    init(persistentContainer: NSPersistentContainer) {
+        self.persistentContainer = persistentContainer
     }
 
-    func checkAvatarList(searchText: String, _ resultHandler: @escaping(Result<[NSManagedObject], Error>) -> Void) {
-
-        guard let managedContext = managedContext else {
-            return
-        }
-
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
-
-        fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", searchText)
-
-        do {
-            let result = try managedContext.fetch(fetchRequest)
-            resultHandler(.success(result))
-        } catch {
-            print(error)
-            resultHandler(.failure(error))
-        }
-
-    }
-
-    func persist(currentAvatar: Avatar) {
+    func saveAvatar(currentAvatar: Avatar) {
 
         DispatchQueue.main.async {
-            guard let managedContext = self.managedContext else {
-                return
-            }
+            let managedContext = self.persistentContainer.viewContext
 
             let entity = NSEntityDescription.entity(forEntityName: "AvatarEntity", in: managedContext)!
 
@@ -54,29 +31,52 @@ class PersistenceAvatar {
         }
 
     }
-    func fetchAvatarData(_ resultHandler: @escaping ([NSManagedObject]) -> Void) {
-        var array: [NSManagedObject]
 
-        guard let managedContext = managedContext else {
-            return
-        }
+    func fetchAvatarData(_ resultHandler: @escaping ([Avatar]) -> Void) {
+        var array: [NSManagedObject]
+        var avatarArray: [Avatar]
+
+        let managedContext = persistentContainer.viewContext
 
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AvatarEntity")
 
         do {
             array = try managedContext.fetch(fetchRequest)
-            resultHandler(array)
+            avatarArray = array.compactMap({ item -> Avatar? in
+                item.toAvatar()
+            })
+            resultHandler(avatarArray)
         } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+            print("Could not fetch. \(error), \(error.userInfo)")
 
         }
     }
 
+    func checkAvatarList(login: String, _ resultHandler: @escaping(Result<[Avatar], Error>) -> Void) {
+
+        var avatar: [Avatar]
+
+        let managedContext = persistentContainer.viewContext
+
+        let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
+        fetchRequest.predicate = NSPredicate(format: "login ==[cd] %@", login)
+
+        do {
+            let matchAvatar = try managedContext.fetch(fetchRequest)
+            avatar = matchAvatar.compactMap({ item -> Avatar? in
+                return item.toAvatar()
+            })
+            resultHandler(.success(avatar))
+        } catch {
+            print(error)
+            resultHandler(.failure(error))
+        }
+
+    }
+
     func delete(avatarObject: Avatar) {
 
-        guard let managedContext = managedContext else {
-            return
-        }
+        let managedContext = persistentContainer.viewContext
 
         let fetchRequest = NSFetchRequest<NSManagedObject>.init(entityName: "AvatarEntity")
         fetchRequest.predicate = NSPredicate(format: "login = %@", avatarObject.login)
@@ -93,5 +93,4 @@ class PersistenceAvatar {
             print("Error deleting Avatar: \(error)")
         }
     }
-
 }

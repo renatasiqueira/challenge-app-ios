@@ -3,7 +3,7 @@ import UIKit.UIImage
 
 public class AppleReposViewModel {
     private var itemsPerPage: Int = 10
-    private var pageNumber: Int = 1
+    private var pageNumber: Int = 0
 
     var appleReposService: AppleReposService?
 
@@ -17,7 +17,7 @@ public class AppleReposViewModel {
     func getRepos() {
         self.pageNumber += 1
         self.appleReposService?.getRepos(itemsPerPage: itemsPerPage,
-                                         pageNumber: pageNumber) { (result: Result<[AppleRepos], Error>) in
+                                         pageNumber: pageNumber, { (result: Result<[AppleRepos], Error>) in
             switch result {
             case .success(let success):
                 self.appleReposList.value?.append(contentsOf: success)
@@ -27,6 +27,6 @@ public class AppleReposViewModel {
             case .failure(let failure):
                 print("Failure: \(failure)")
             }
-        }
+        })
     }
 }

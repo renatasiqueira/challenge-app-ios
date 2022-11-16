@@ -2,11 +2,17 @@ import Foundation
 import UIKit
 import RxSwift
 
-class EmojisListViewController: BaseGenericViewController<EmojisView>, Coordinating {
+public protocol EmojisListViewControllerDelegate: AnyObject {
+    func navigateToMainPage()
+}
+
+class EmojisListViewController: BaseGenericViewController<EmojisView> {
 
     var coordinator: Coordinator?
     var emojisList: [Emoji] = []
     var viewModel: EmojisViewModel?
+
+    public weak var delegate: EmojisListViewControllerDelegate?
 
     private var collectionView: UICollectionView
 
@@ -44,6 +50,14 @@ class EmojisListViewController: BaseGenericViewController<EmojisView>, Coordinat
         })
         viewModel?.getEmojis()
     }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        self.delegate?.navigateToMainPage()
+    }
+
+//    @IBAction func goToSecondPageAction(_ sender: Any) {
+//        self.delegate?.navigateToNextPage()
+//    }
 }
 
 extension EmojisListViewController: UICollectionViewDataSource {

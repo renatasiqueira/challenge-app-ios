@@ -1,6 +1,6 @@
 import UIKit
 
-class SearchButtonViewController: UIViewController, Coordinating {
+class SearchButtonViewController: UIViewController {
 
     var coordinator: Coordinator?
 

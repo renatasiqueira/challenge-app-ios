@@ -28,6 +28,7 @@ class EmojisView: BaseGenericView {
 
     override func createViews() {
         setUpViews()
+        collectionView.frame = bounds
         addViewToSuperView()
         setUpConstraints()
     }

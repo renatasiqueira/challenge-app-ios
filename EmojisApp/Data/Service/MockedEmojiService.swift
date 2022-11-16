@@ -1,15 +1,15 @@
 import UIKit
 
-class MockedEmojiStorage: EmojiService {
+class MockedEmojiService: EmojiService {
 
    // weak var delegate: EmojiStorageDelegate?
 
-    private var mockedEmojis: MockedEmojisStorage = .init()
+    private var mockedEmojis: MockedEmojiService = .init()
 
     var emojis: [Emoji] = []
 
     func getEmojisList(_ resultHandler: @escaping (Result<[Emoji], Error>) -> Void) {
-        emojis = mockedEmojis.emoji
+        emojis = mockedEmojis.emojis
         resultHandler(.success(emojis))
     }
 }

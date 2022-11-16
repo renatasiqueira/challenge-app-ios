@@ -5,9 +5,9 @@ public class AvatarViewModel {
 
     var avatarList: Box<[Avatar]?> = Box(nil)
 
-    init(avatarService: AvatarService) {
-        self.avatarService = avatarService
-    }
+//    init(avatarService: AvatarService) {
+//        self.avatarService = avatarService
+//    }
 
     func getAvatar() {
         avatarService?.fetchAvatarList({ (result: [Avatar]) in

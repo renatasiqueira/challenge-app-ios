@@ -1,9 +1,14 @@
 import CoreData
 import UIKit
+import SwiftUI
 
 class PersistenceEmojis {
-    var persistenceEmojisList: [NSManagedObject] = []
-    var application: Application = .init()
+
+    private let persistentContainer: NSPersistentContainer
+
+    init(persistentContainer: NSPersistentContainer) {
+        self.persistentContainer = persistentContainer
+    }
 
     func saveEmojisList(name: String, url: String) {
 
@@ -11,7 +16,7 @@ class PersistenceEmojis {
 
             // 1
 
-            let managedContext = self.application.persistentContainer.viewContext
+            let managedContext = self.persistentContainer.viewContext
 
             // 2
             let entity =
@@ -27,26 +32,29 @@ class PersistenceEmojis {
             // 4
             do {
                 try managedContext.save()
-                self.persistenceEmojisList.append(managedEmoji)
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
         }
 
     }
-    func loadData() -> [NSManagedObject] {
+    func loadData() -> [Emoji] {
         var array: [NSManagedObject] = []
+        var emojisArray: [Emoji] = []
 
-        let managedContext = application.persistentContainer.viewContext
+        let managedContext = persistentContainer.viewContext
 
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "EmojiEntity")
 
         do {
             array = try managedContext.fetch(fetchRequest)
+            emojisArray = array.compactMap({ item -> Emoji? in
+                item.toEmojis()
+            })
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
 
-        return array
+        return emojisArray
     }
 }
