@@ -3,7 +3,7 @@ import UIKit.UIImage
 
 public class AppleReposViewModel {
     private var itemsPerPage: Int = 10
-    private var pageNumber: Int = 1
+    private var pageNumber: Int = 0
 
     var appleReposService: AppleReposService?
 

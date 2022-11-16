@@ -18,14 +18,14 @@ class CellsCollectionView: UICollectionViewCell {
         super.init(frame: .zero)
         self.contentView.addSubview(imageView)
         setUpConstraints()
-
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     func setUpCell(url: URL) {
-        self.imageView.createDownloadDataTask(from: url)
+        dataTask = self.imageView.createDownloadDataTask(from: url)
+        dataTask?.resume()
     }
 
     func setUpConstraints() {

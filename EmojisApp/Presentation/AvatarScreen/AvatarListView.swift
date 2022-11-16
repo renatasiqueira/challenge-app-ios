@@ -43,7 +43,7 @@ class AvatarListView: BaseGenericView {
     }
 
     private func setUpViews() {
-        collectionView.register(CellsTableView.self, forCellWithReuseIdentifier: CellsTableView.reuseCellIdentifier)
+        collectionView.register(CellsCollectionView.self, forCellWithReuseIdentifier: CellsCollectionView.reuseCellIdentifier)
     }
 
     private func addViewsToSuperview() {
