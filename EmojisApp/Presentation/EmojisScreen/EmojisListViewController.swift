@@ -54,10 +54,6 @@ class EmojisListViewController: BaseGenericViewController<EmojisView> {
     override func viewDidDisappear(_ animated: Bool) {
         self.delegate?.navigateToMainPage()
     }
-
-//    @IBAction func goToSecondPageAction(_ sender: Any) {
-//        self.delegate?.navigateToNextPage()
-//    }
 }
 
 extension EmojisListViewController: UICollectionViewDataSource {

@@ -1,8 +1,8 @@
 import UIKit
 
-public protocol AvatarsListViewControllerDelegate: AnyObject {
-    func navigateToMainPage()
-}
+//public protocol AvatarsListViewControllerDelegate: AnyObject {
+//    func navigateToMainPage()
+//}
 
 class AvatarsListViewController: BaseGenericViewController<AvatarListView> {
 

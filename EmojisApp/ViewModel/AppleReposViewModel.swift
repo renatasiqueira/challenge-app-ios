@@ -1,5 +1,4 @@
 import Foundation
-import UIKit.UIImage
 
 public class AppleReposViewModel {
     private var itemsPerPage: Int = 10

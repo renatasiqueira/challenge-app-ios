@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class AppleReposView: BaseGenericView {
-    var tableView: UITableView
+    let tableView: UITableView
 
     required init() {
         tableView = .init(frame: .zero)

@@ -1,6 +1,6 @@
 import Foundation
 
-struct EmojisAPICALLResult: Decodable {
+struct EmojisApiCallResult: Decodable {
     var emojis: [Emoji] = []
 
     init(from decoder: Decoder) throws {

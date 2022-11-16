@@ -3,11 +3,7 @@ import CoreData
 
 class LiveAppleReposService: AppleReposService {
 
-    // var appleRepos: [AppleRepos] = []
-
     private var networkManager: NetworkManager = .init()
-
-//    weak var delegate: ReposStorageDelegate?
 
     func getRepos(itemsPerPage: Int, pageNumber: Int, _ resultHandler:
                   @escaping (Result<[AppleRepos], Error>) -> Void) {

@@ -1,6 +1,5 @@
 import CoreData
 import UIKit
-import SwiftUI
 
 class PersistenceEmojis {
 

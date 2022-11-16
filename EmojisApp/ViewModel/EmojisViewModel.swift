@@ -5,10 +5,6 @@ public class EmojisViewModel {
 
     var emojisList: Box<[Emoji]?> = Box(nil)
 
-//    init(emojiService: EmojiService) {
-//        self.emojiService = emojiService
-//    }
-
     func getEmojis() {
         emojiService?.getEmojisList({ (result: Result<[Emoji], Error>) in
             switch result {
