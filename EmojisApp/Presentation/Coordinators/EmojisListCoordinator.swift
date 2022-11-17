@@ -34,7 +34,7 @@ class EmojisListCoordinator: Coordinator {
     }
 }
 
-extension EmojisListCoordinator: EmojisListViewControllerDelegate {
+extension EmojisListCoordinator: SendBackDelegate {
     func navigateToMainPage() {
         self.delegate?.navigateBackToMainPage()
     }

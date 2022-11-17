@@ -28,14 +28,13 @@ class AppleReposView: BaseGenericView {
 
     private func setUpViews() {
         backgroundColor = .appColor(name: .suface)
-
+        
         tableView.frame = bounds
         tableView.backgroundColor = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.automaticallyAdjustsScrollIndicatorInsets = false
         tableView.contentInsetAdjustmentBehavior = .never
-
-        tableView.register(CellsTableView.self, forCellReuseIdentifier: CellsTableView.reuseCellIdentifier)
+        tableView.register(ReposNameTableViewCell.self, forCellReuseIdentifier: ReposNameTableViewCell.reuseCellIdentifier)
     }
 
     private func addViewToSuperView() {

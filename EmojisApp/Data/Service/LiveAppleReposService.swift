@@ -2,9 +2,9 @@ import Foundation
 import CoreData
 
 class LiveAppleReposService: AppleReposService {
-
+    
     private var networkManager: NetworkManager = .init()
-
+    
     func getRepos(itemsPerPage: Int, pageNumber: Int, _ resultHandler:
                   @escaping (Result<[AppleRepos], Error>) -> Void) {
         networkManager.executeNetworkCall(ReposAPI.getRepos(perPage: itemsPerPage,

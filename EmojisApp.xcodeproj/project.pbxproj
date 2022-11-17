@@ -57,8 +57,8 @@
 		C7C9B5B629127D3E006890BA /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9B5B529127D3E006890BA /* Box.swift */; };
 		C7C9B5C82919503F006890BA /* EmojisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9B5C72919503F006890BA /* EmojisView.swift */; };
 		C7C9B5CA2919637A006890BA /* MockedEmojisDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9B5C92919637A006890BA /* MockedEmojisDataSource.swift */; };
-		C7C9B5CC291A95F4006890BA /* CellsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9B5CB291A95F4006890BA /* CellsCollectionView.swift */; };
-		C7C9B5CE291A9E3B006890BA /* CellsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9B5CD291A9E3B006890BA /* CellsTableView.swift */; };
+		C7C9B5CC291A95F4006890BA /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9B5CB291A95F4006890BA /* ImageCollectionViewCell.swift */; };
+		C7C9B5CE291A9E3B006890BA /* ReposNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9B5CD291A9E3B006890BA /* ReposNameTableViewCell.swift */; };
 		C7C9B5D1291ACA4D006890BA /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C7C9B5D0291ACA4D006890BA /* RxCocoa */; };
 		C7C9B5D3291ACA4D006890BA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C7C9B5D2291ACA4D006890BA /* RxSwift */; };
 		C7C9B5D6291BAEC6006890BA /* AppleReposView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9B5D5291BAEC6006890BA /* AppleReposView.swift */; };
@@ -73,6 +73,7 @@
 		C7C9F5AC28EC2E2300F65BCF /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9F5AB28EC2E2300F65BCF /* Avatar.swift */; };
 		C7C9F5AE28EC2F4200F65BCF /* Avatar+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9F5AD28EC2F4200F65BCF /* Avatar+Mock.swift */; };
 		C7C9F5B028EC8C0700F65BCF /* LiveAvatarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9F5AF28EC8C0700F65BCF /* LiveAvatarService.swift */; };
+		C7FAFF3F2926406D00CD0A45 /* SendBackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FAFF3E2926406D00CD0A45 /* SendBackDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,8 +128,8 @@
 		C7C9B5B529127D3E006890BA /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		C7C9B5C72919503F006890BA /* EmojisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojisView.swift; sourceTree = "<group>"; };
 		C7C9B5C92919637A006890BA /* MockedEmojisDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedEmojisDataSource.swift; sourceTree = "<group>"; };
-		C7C9B5CB291A95F4006890BA /* CellsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellsCollectionView.swift; sourceTree = "<group>"; };
-		C7C9B5CD291A9E3B006890BA /* CellsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellsTableView.swift; sourceTree = "<group>"; };
+		C7C9B5CB291A95F4006890BA /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		C7C9B5CD291A9E3B006890BA /* ReposNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposNameTableViewCell.swift; sourceTree = "<group>"; };
 		C7C9B5D5291BAEC6006890BA /* AppleReposView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleReposView.swift; sourceTree = "<group>"; };
 		C7C9B5D8291D1C4C006890BA /* EmojisListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojisListCoordinator.swift; sourceTree = "<group>"; };
 		C7C9B5DA291D1C75006890BA /* AvatarListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarListCoordinator.swift; sourceTree = "<group>"; };
@@ -141,6 +142,7 @@
 		C7C9F5AB28EC2E2300F65BCF /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		C7C9F5AD28EC2F4200F65BCF /* Avatar+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Avatar+Mock.swift"; sourceTree = "<group>"; };
 		C7C9F5AF28EC8C0700F65BCF /* LiveAvatarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAvatarService.swift; sourceTree = "<group>"; };
+		C7FAFF3E2926406D00CD0A45 /* SendBackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBackDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +301,7 @@
 		C7C9B5C029192DAD006890BA /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				C7FAFF3D29263FB300CD0A45 /* SendBackDelegate */,
 				C7C9B5D7291D0CBE006890BA /* Coordinators */,
 				C7C9B5D4291BAE8E006890BA /* AppleReposScreen */,
 				C7C9B5C629192E59006890BA /* ViewController */,
@@ -351,8 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				C7A7C81A290849BD00EE08C5 /* ReusableCells.swift */,
-				C7C9B5CB291A95F4006890BA /* CellsCollectionView.swift */,
-				C7C9B5CD291A9E3B006890BA /* CellsTableView.swift */,
+				C7C9B5CB291A95F4006890BA /* ImageCollectionViewCell.swift */,
+				C7C9B5CD291A9E3B006890BA /* ReposNameTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -394,6 +397,14 @@
 				C7A091D82901B78A0045EC13 /* ReposApi.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		C7FAFF3D29263FB300CD0A45 /* SendBackDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				C7FAFF3E2926406D00CD0A45 /* SendBackDelegate.swift */,
+			);
+			path = SendBackDelegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -525,6 +536,7 @@
 				C7C9B5E3292397A5006890BA /* MockAppleReposService.swift in Sources */,
 				C73C6DA928F83E3600B17433 /* ActivityIndicator+View.swift in Sources */,
 				C7A091D3290155950045EC13 /* LiveAppleReposService.swift in Sources */,
+				C7FAFF3F2926406D00CD0A45 /* SendBackDelegate.swift in Sources */,
 				C7A091C728F86CB00045EC13 /* Database.xcdatamodeld in Sources */,
 				C7A091CB28FF01100045EC13 /* NSManagedObject+Avatar.swift in Sources */,
 				C7A6A2A328F41BE000E77D4F /* ImageView+Download.swift in Sources */,
@@ -536,9 +548,9 @@
 				C7A091D92901B78A0045EC13 /* ReposApi.swift in Sources */,
 				C7A091C928FEB07A0045EC13 /* AvatarService.swift in Sources */,
 				C7C9B5DD291D1CDF006890BA /* AppleReposListCoordinator.swift in Sources */,
-				C7C9B5CC291A95F4006890BA /* CellsCollectionView.swift in Sources */,
+				C7C9B5CC291A95F4006890BA /* ImageCollectionViewCell.swift in Sources */,
 				C7C9B5D6291BAEC6006890BA /* AppleReposView.swift in Sources */,
-				C7C9B5CE291A9E3B006890BA /* CellsTableView.swift in Sources */,
+				C7C9B5CE291A9E3B006890BA /* ReposNameTableViewCell.swift in Sources */,
 				C7A7C827290AD5F400EE08C5 /* BaseGenericView.swift in Sources */,
 				C7C9F5B028EC8C0700F65BCF /* LiveAvatarService.swift in Sources */,
 				C7A6A2A628F41E1400E77D4F /* EmojiResponse.swift in Sources */,

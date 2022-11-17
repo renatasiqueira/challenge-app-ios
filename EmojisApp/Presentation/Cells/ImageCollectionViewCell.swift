@@ -1,14 +1,7 @@
-//
-//  CellsCollectionView.swift
-//  EmojisApp
-//
-//  Created by Renata Siqueira on 08/11/2022.
-//
-
 import Foundation
 import UIKit
 
-class CellsCollectionView: UICollectionViewCell {
+class ImageCollectionViewCell: UICollectionViewCell {
 
     private var imageView: UIImageView
     var dataTask: URLSessionDataTask?

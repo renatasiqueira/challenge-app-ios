@@ -34,8 +34,8 @@ class EmojisView: BaseGenericView {
     }
 
     private func setUpViews() {
-        collectionView.register(CellsCollectionView.self,
-                                forCellWithReuseIdentifier: CellsCollectionView.reuseCellIdentifier)
+        collectionView.register(ImageCollectionViewCell.self,
+                                forCellWithReuseIdentifier: ImageCollectionViewCell.reuseCellIdentifier)
 
         collectionView.delegate = self
 

@@ -1,26 +1,19 @@
-//
-//  AppleReposListCoordinator.swift
-//  EmojisApp
-//
-//  Created by Renata Siqueira on 10/11/2022.
-//
-
 import Foundation
 import UIKit
 import CoreData
 
-class AppleReposCoordinator: Coordinator {
+class AppleReposListCoordinator: Coordinator {
     var childCoordinator: [Coordinator] = []
-
+    
     unowned let navigationController: UINavigationController
     weak var delegate: BackToMainViewControllerDelegate?
-
+    
     var reposViewModel: AppleReposView?
-
+    
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
         let appleReposViewController: AppleReposViewController = AppleReposViewController()
         appleReposViewController.delegate = self
@@ -28,11 +21,11 @@ class AppleReposCoordinator: Coordinator {
         appleReposViewController.viewModel = AppleReposViewModel(appleReposService: appleReposService)
         self.navigationController.pushViewController(appleReposViewController, animated: true)
     }
-
+    
 }
 
-extension AppleReposCoordinator: AppleReposViewControllerDelegate {
+extension AppleReposListCoordinator: SendBackDelegate {
     func navigateToMainPage() {
-         self.delegate?.navigateBackToMainPage()
+        self.delegate?.navigateBackToMainPage()
     }
 }

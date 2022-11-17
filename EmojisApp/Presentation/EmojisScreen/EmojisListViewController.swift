@@ -1,10 +1,5 @@
 import Foundation
 import UIKit
-import RxSwift
-
-public protocol EmojisListViewControllerDelegate: AnyObject {
-    func navigateToMainPage()
-}
 
 class EmojisListViewController: BaseGenericViewController<EmojisView> {
 
@@ -12,7 +7,7 @@ class EmojisListViewController: BaseGenericViewController<EmojisView> {
     var emojisList: [Emoji] = []
     var viewModel: EmojisViewModel?
 
-    public weak var delegate: EmojisListViewControllerDelegate?
+    public weak var delegate: SendBackDelegate?
 
     private var collectionView: UICollectionView
 
@@ -67,7 +62,7 @@ extension EmojisListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell: CellsCollectionView = collectionView.dequeueReusableCell(for: indexPath)
+        let cell: ImageCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
         let url = emojisList[indexPath.row].emojiUrl
 

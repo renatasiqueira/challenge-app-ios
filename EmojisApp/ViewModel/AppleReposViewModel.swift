@@ -15,8 +15,7 @@ public class AppleReposViewModel {
 
     func getRepos() {
         self.pageNumber += 1
-        self.appleReposService?.getRepos(itemsPerPage: itemsPerPage,
-                                         pageNumber: pageNumber, { (result: Result<[AppleRepos], Error>) in
+        self.appleReposService?.getRepos(itemsPerPage: itemsPerPage, pageNumber: pageNumber, {(result: Result<[AppleRepos], Error>) in
             switch result {
             case .success(let success):
                 self.appleReposList.value?.append(contentsOf: success)

@@ -1,12 +1,8 @@
 import UIKit
 
-public protocol AppleReposViewControllerDelegate: AnyObject {
-    func navigateToMainPage()
-}
-
 class AppleReposViewController: BaseGenericViewController<AppleReposView> {
 
-    public weak var delegate: AppleReposViewControllerDelegate?
+    public weak var delegate: SendBackDelegate?
 
     var appleRepos: [AppleRepos]  = []
     var viewModel: AppleReposViewModel?
@@ -71,7 +67,7 @@ extension AppleReposViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell: CellsTableView = tableView.dequeueReusableCell(for: indexPath)
+        let cell: ReposNameTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
         cell.setUpCells(textField: appleRepos[indexPath.row].fullName)
 

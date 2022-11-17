@@ -19,11 +19,9 @@ class PersistenceEmojis {
 
             // 2
             let entity =
-            NSEntityDescription.entity(forEntityName: "EmojiEntity",
-                                       in: managedContext)!
+            NSEntityDescription.entity(forEntityName: "EmojiEntity", in: managedContext)!
             // 3
-            let managedEmoji = NSManagedObject(entity: entity,
-                                               insertInto: managedContext)
+            let managedEmoji = NSManagedObject(entity: entity, insertInto: managedContext)
 
             managedEmoji.setValue(name, forKeyPath: "name")
             managedEmoji.setValue(url, forKey: "url")

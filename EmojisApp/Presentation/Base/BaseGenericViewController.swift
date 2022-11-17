@@ -12,7 +12,7 @@ import RxSwift
 
 class BaseGenericViewController<View: BaseGenericView>: UIViewController {
 
-    var disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
 
     var genericView: View {
 

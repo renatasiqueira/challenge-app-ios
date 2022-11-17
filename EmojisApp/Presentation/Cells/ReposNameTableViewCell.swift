@@ -1,14 +1,7 @@
-//
-//  CellsTableView.swift
-//  EmojisApp
-//
-//  Created by Renata Siqueira on 08/11/2022.
-//
-
 import Foundation
 import UIKit
 
-class CellsTableView: UITableViewCell {
+class ReposNameTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
