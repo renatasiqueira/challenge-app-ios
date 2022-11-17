@@ -4,7 +4,7 @@ import Alamofire
 
 class MainViewController: BaseGenericViewController<MainView> {
 
-    public weak var delegate: MainViewControllerDelegate?
+    weak var delegate: MainViewControllerDelegate?
 
     var viewModel: MainPageViewModel?
 

@@ -16,5 +16,5 @@ class MockedAvatarStorage {
                              Avatar(login: "blissapps7", id: 07, avatarUrl:
                                         URL(string: "https://avatars0.githubusercontent.com/u/223156?v=4")!)
     ]
-    
+
 }
