@@ -12,7 +12,7 @@ import CoreData
 class EmojisListCoordinator: Coordinator {
 
     var childCoordinator: [Coordinator] = []
-    unowned let navigationController: UINavigationController
+    let navigationController: UINavigationController
     weak var delegate: BackToMainViewControllerDelegate?
     var viewModel: EmojisViewModel?
     var emojiService: EmojiService?

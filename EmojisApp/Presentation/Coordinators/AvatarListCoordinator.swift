@@ -12,7 +12,7 @@ import CoreData
 class AvatarListCoordinator: Coordinator {
 
     var childCoordinator: [Coordinator] = []
-    unowned let navigationController: UINavigationController
+    let navigationController: UINavigationController
     weak var delegate: BackToMainViewControllerDelegate?
     var avatarViewModel: AvatarViewModel?
     var avatarService: AvatarService?

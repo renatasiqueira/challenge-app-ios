@@ -5,7 +5,7 @@ class MainPageCoordinator: Coordinator {
 
     var childCoordinator: [Coordinator] = []
 
-    unowned let navigationController: UINavigationController
+    let navigationController: UINavigationController
 
     var application: Application
 

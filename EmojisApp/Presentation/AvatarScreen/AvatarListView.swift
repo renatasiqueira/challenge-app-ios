@@ -14,8 +14,6 @@ import RxSwift
 class AvatarListView: BaseGenericView {
     var collectionView: UICollectionView
 
-    // var viewModel: AvatarViewModel?
-
     required init() {
 
         let layout = UICollectionViewFlowLayout()
@@ -39,12 +37,12 @@ class AvatarListView: BaseGenericView {
         addViewsToSuperview()
         setUpConstraints()
 
-        //        collectionView.backgroundColor = .none
     }
 
     private func setUpViews() {
         collectionView.register(ImageCollectionViewCell.self,
                                 forCellWithReuseIdentifier: ImageCollectionViewCell.reuseCellIdentifier)
+        
     }
 
     private func addViewsToSuperview() {
