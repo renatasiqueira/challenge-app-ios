@@ -9,5 +9,6 @@ struct Avatar: Decodable {
         case login
         case id
         case avatarUrl = "avatar_url"
-      }
+
+    }
 }
