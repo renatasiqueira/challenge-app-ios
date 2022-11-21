@@ -23,7 +23,7 @@ class AvatarListView: BaseGenericView {
         layout.minimumInteritemSpacing = 4
 
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
-
+        
         super.init()
 
     }
@@ -61,4 +61,15 @@ class AvatarListView: BaseGenericView {
 
     }
 
+    func createDeleteAlert(_ deleteFunc: @escaping () -> Void) -> UIAlertController {
+        let alert = UIAlertController(title: "Delete Avatar", message: "Do you want to delete?", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_: UIAlertAction!) in
+
+            deleteFunc()
+        }))
+        return alert
+
+    }
 }
