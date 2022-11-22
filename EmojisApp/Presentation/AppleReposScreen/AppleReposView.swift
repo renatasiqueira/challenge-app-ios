@@ -11,10 +11,10 @@ import UIKit
 class AppleReposView: BaseGenericView {
     let tableView: UITableView
 
-    required init() {
+    override init(frame: CGRect) {
         tableView = .init(frame: .zero)
 
-        super.init()
+        super.init(frame: frame)
     }
     required init?(coder: NSCoder) {
         fatalError("init() has not been implemented")

@@ -45,10 +45,10 @@
 		C7A7C81B290849BD00EE08C5 /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C81A290849BD00EE08C5 /* ReusableCells.swift */; };
 		C7A7C81D29084AA900EE08C5 /* UICollectionViewCell+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C81C29084AA900EE08C5 /* UICollectionViewCell+ReusableView.swift */; };
 		C7A7C81F29084D5700EE08C5 /* UITableViewCell+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C81E29084D5700EE08C5 /* UITableViewCell+ReusableView.swift */; };
-		C7A7C825290A7CCF00EE08C5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C824290A7CCF00EE08C5 /* Constants.swift */; };
 		C7A7C827290AD5F400EE08C5 /* BaseGenericView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C826290AD5F400EE08C5 /* BaseGenericView.swift */; };
 		C7A7C829290AD62B00EE08C5 /* BaseGenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C828290AD62B00EE08C5 /* BaseGenericViewController.swift */; };
 		C7A7C82B290AD67A00EE08C5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C82A290AD67A00EE08C5 /* MainView.swift */; };
+		C7C845EF292D413900B0FC65 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C845EE292D413900B0FC65 /* Constants.swift */; };
 		C7C9B5AA290FD320006890BA /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9B5A9290FD320006890BA /* Application.swift */; };
 		C7C9B5AD29127A5C006890BA /* MainPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9B5AC29127A5C006890BA /* MainPageViewModel.swift */; };
 		C7C9B5AF29127A6D006890BA /* AvatarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9B5AE29127A6D006890BA /* AvatarViewModel.swift */; };
@@ -89,7 +89,7 @@
 		C79C891528E1BA3100600405 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C79C891A28E1BA3200600405 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C79C891D28E1BA3200600405 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C79C891F28E1BA3200600405 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C79C891F28E1BA3200600405 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = EmojisApp/Info.plist; sourceTree = SOURCE_ROOT; };
 		C79C892628E1EB5B00600405 /* EmojisListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojisListViewController.swift; sourceTree = "<group>"; };
 		C79C892A28E1F36200600405 /* AvatarListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarListViewController.swift; sourceTree = "<group>"; };
 		C79C892C28E1F52400600405 /* AppleReposViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleReposViewController.swift; sourceTree = "<group>"; };
@@ -116,16 +116,16 @@
 		C7A7C81A290849BD00EE08C5 /* ReusableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCells.swift; sourceTree = "<group>"; };
 		C7A7C81C29084AA900EE08C5 /* UICollectionViewCell+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+ReusableView.swift"; sourceTree = "<group>"; };
 		C7A7C81E29084D5700EE08C5 /* UITableViewCell+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ReusableView.swift"; sourceTree = "<group>"; };
-		C7A7C824290A7CCF00EE08C5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C7A7C826290AD5F400EE08C5 /* BaseGenericView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGenericView.swift; sourceTree = "<group>"; };
 		C7A7C828290AD62B00EE08C5 /* BaseGenericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGenericViewController.swift; sourceTree = "<group>"; };
 		C7A7C82A290AD67A00EE08C5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		C7C845EE292D413900B0FC65 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C7C9B5A9290FD320006890BA /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		C7C9B5AC29127A5C006890BA /* MainPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewModel.swift; sourceTree = "<group>"; };
 		C7C9B5AE29127A6D006890BA /* AvatarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewModel.swift; sourceTree = "<group>"; };
 		C7C9B5B129127A9E006890BA /* EmojisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojisViewModel.swift; sourceTree = "<group>"; };
 		C7C9B5B329127AB3006890BA /* AppleReposViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleReposViewModel.swift; sourceTree = "<group>"; };
-		C7C9B5B529127D3E006890BA /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		C7C9B5B529127D3E006890BA /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Box.swift; path = EmojisApp/Utilities/Box.swift; sourceTree = SOURCE_ROOT; };
 		C7C9B5C72919503F006890BA /* EmojisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojisView.swift; sourceTree = "<group>"; };
 		C7C9B5C92919637A006890BA /* MockedEmojisDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedEmojisDataSource.swift; sourceTree = "<group>"; };
 		C7C9B5CB291A95F4006890BA /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 				C7A091CA28FF01100045EC13 /* NSManagedObject+Avatar.swift */,
 				C7A7C81C29084AA900EE08C5 /* UICollectionViewCell+ReusableView.swift */,
 				C7A7C81E29084D5700EE08C5 /* UITableViewCell+ReusableView.swift */,
-				C7A7C824290A7CCF00EE08C5 /* Constants.swift */,
+				C7C845EE292D413900B0FC65 /* Constants.swift */,
 				C7C9B5B529127D3E006890BA /* Box.swift */,
 			);
 			path = Utilities;
@@ -519,7 +519,6 @@
 				C7C9F5A828EAF5D400F65BCF /* NetworkManager.swift in Sources */,
 				C79C38E228EEE408002FA1F3 /* AvatarApi.swift in Sources */,
 				C7C9F5AC28EC2E2300F65BCF /* Avatar.swift in Sources */,
-				C7A7C825290A7CCF00EE08C5 /* Constants.swift in Sources */,
 				C7C9B5D9291D1C4C006890BA /* EmojisListCoordinator.swift in Sources */,
 				C7C9B5AA290FD320006890BA /* Application.swift in Sources */,
 				C7A7C829290AD62B00EE08C5 /* BaseGenericViewController.swift in Sources */,
@@ -552,6 +551,7 @@
 				C7C9B5D6291BAEC6006890BA /* AppleReposView.swift in Sources */,
 				C7C9B5CE291A9E3B006890BA /* ReposNameTableViewCell.swift in Sources */,
 				C7A7C827290AD5F400EE08C5 /* BaseGenericView.swift in Sources */,
+				C7C845EF292D413900B0FC65 /* Constants.swift in Sources */,
 				C7C9F5B028EC8C0700F65BCF /* LiveAvatarService.swift in Sources */,
 				C7A6A2A628F41E1400E77D4F /* EmojiResponse.swift in Sources */,
 				C79D6EE328E5B0890055B15E /* LiveEmojiService.swift in Sources */,

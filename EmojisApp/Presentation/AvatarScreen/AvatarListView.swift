@@ -14,7 +14,7 @@ import RxSwift
 class AvatarListView: BaseGenericView {
     var collectionView: UICollectionView
 
-    required init() {
+    override init(frame: CGRect) {
 
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -24,7 +24,7 @@ class AvatarListView: BaseGenericView {
 
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
         
-        super.init()
+        super.init(frame: frame)
 
     }
 

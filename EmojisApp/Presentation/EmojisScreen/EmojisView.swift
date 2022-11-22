@@ -7,11 +7,13 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class EmojisView: BaseGenericView {
     var collectionView: UICollectionView
+    private var emojisImageView: UIImageView
 
-    required init() {
+    override init(frame: CGRect) {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
 
@@ -19,7 +21,9 @@ class EmojisView: BaseGenericView {
         layout.minimumInteritemSpacing = 4
 
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
-        super.init()
+        emojisImageView = .init(frame: .zero)
+
+        super.init(frame: frame)
     }
 
     required init?(coder: NSCoder) {

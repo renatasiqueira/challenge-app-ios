@@ -18,7 +18,7 @@ class MainView: BaseGenericView {
 
     // 1 - CREATE VIEWS
 
-    required init() {
+    override init(frame: CGRect) {
         emojisListButton = .init(type: .system)
         randomEmojisButton = .init(type: .system)
         avatarListButton = .init(type: .system)
@@ -35,7 +35,7 @@ class MainView: BaseGenericView {
                                                      avatarListButton,
                                                      appleReposButton])
 
-        super.init()
+        super.init(frame: frame)
     }
 
     required init(coder: NSCoder) {
