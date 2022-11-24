@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 
 class AvatarsListViewController: BaseGenericViewController<AvatarListView> {
 
@@ -20,19 +21,31 @@ class AvatarsListViewController: BaseGenericViewController<AvatarListView> {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel?.avatarList.bind(listener: { [weak self] avatars in
-            guard let self = self,
-                  let avatars = avatars else {return}
-            self.avatarList = avatars
-            DispatchQueue.main.async {
-                self.genericView.collectionView.reloadData()
-            }
 
-        })
-
+        //        self.viewModel?.avatarList.bind(listener: { [weak self] avatars in
+        //            guard let self = self,
+        //                  let avatars = avatars else {return}
+        //            self.avatarList = avatars
+        //            DispatchQueue.main.async {
+        //                self.genericView.collectionView.reloadData()
+        //            }
+        //
+        //        })
         viewModel?.getAvatar()
+            .subscribe(onSucess: { [weak self] avatars in
+                guard let self = self else { return }
+                self.avatarsList = avatars
+            }, onFailure: { error in
+                print("Error to get Avatars: \(error)")
+            }, onDisposed: {
+                print("Avatars is on!")
+            })
+            .disposed(by: disposeBag)
     }
 
+    deinit {
+        self.delegate?.navigateToMainPage()
+    }
 }
 
 extension AvatarsListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -61,9 +74,9 @@ extension AvatarsListViewController: UICollectionViewDataSource, UICollectionVie
         }
 
         self.present(alert, animated: true, completion: nil)
-        }
-
     }
+
+}
 
 extension AvatarsListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,

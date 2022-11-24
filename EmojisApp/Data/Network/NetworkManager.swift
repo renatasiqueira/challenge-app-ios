@@ -1,5 +1,5 @@
 import Foundation
-import UIKit
+import RxSwift
 
 protocol APIProtocol {
     var url: URL { get }
@@ -14,9 +14,10 @@ enum Method: String {
 
 enum APIError: Error {
     case unknownError
+    case parseError
 }
 
-class NetworkManager {
+class NetworkManager: ReactiveCompatible {
 
     static func initialize() {
         URLSession.shared.configuration.urlCache?.diskCapacity = 100 * 1024 * 1024
@@ -48,16 +49,31 @@ class NetworkManager {
     }
 }
 
-func downloadImageFromURL(from url: URL, _ resultHandler: @escaping (Result<UIImage, Error>) -> Void) {
-    let task = URLSession.shared.dataTask(with: url) { data, _, error in
-        if let data = data {
-            if let image = UIImage(data: data) {
-                resultHandler(Result<UIImage, Error>.success(image))
+extension Reactive where Base: NetworkManager {
+    func executeNetworkCall<ResultType: Decodable>(_ call: APIProtocol) -> Single<ResultType> {
+        let decoder = JSONDecoder()
+        var request = URLRequest(url: call.url)
+        request.httpMethod = call.method.rawValue
+        call.headers.forEach { (key: String, value: String) in
+        }
+        
+        return Single<ResultType>.create { single in
+            let task = URLSession.shared.dataTask(with: request) {data, _, error in
+                if let error = error {
+                    single(.failure(error))
+                    return
+                }
+                guard let data = data,
+                      let result = try? decoder.decode(ResultType.self, from: data)
+                else {
+                    single(.failure(APIError.parseError))
+                    return
+                }
+                single(.success(result))
             }
-        } else if let error = error {
-            resultHandler(Result<UIImage, Error>.failure(error))
-
+            task.resume()
+            return Disposables.create { task.cancel() }
         }
     }
-    task.resume()
 }
+
