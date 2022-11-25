@@ -30,7 +30,7 @@ public class MainPageViewModel {
     private func searchAvatar() {
         guard let searchQuery = searchQuery.value else { return }
 
-        application.avatarService.getAvatar(searchText: searchQuery, { (result: Result<Avatar, Error>) in
+        application.avatarService.getAvatar(searchText: searchQuery { (result: Result<Avatar, Error>) in
             switch result {
             case .success(let success):
                 let avatar = success.avatarUrl

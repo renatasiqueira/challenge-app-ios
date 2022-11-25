@@ -18,8 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navVC
-        window?.makeKeyAndVisible()
-
+       
         let application: Application = .init()
 
         mainPageCoordinator = MainPageCoordinator(navigationController: navVC, application: application)

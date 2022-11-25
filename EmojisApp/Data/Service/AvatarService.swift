@@ -1,7 +1,8 @@
 import UIKit
+import RxSwift
 
 protocol AvatarService {
-    func getAvatar(searchText: String, _ resultHandler: @escaping (Result<Avatar, Error>) -> Void)
-    func fetchAvatarList(_ resultHandler: @escaping ([Avatar]) -> Void)
-    func deleteAvatar(avatarToDelete: Avatar)
+    func getAvatar(avatarName: String) -> Observable<Avatar>
+    func fetchAvatarList() -> Single<[Avatar]>
+    func deleteAvatar(_ avatarToDelete: Avatar) -> Completable
 }

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C73C6DA928F83E3600B17433 /* ActivityIndicator+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C6DA828F83E3600B17433 /* ActivityIndicator+View.swift */; };
 		C73C6DAB28F85C5300B17433 /* PersistenceAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C6DAA28F85C5300B17433 /* PersistenceAvatar.swift */; };
-		C793D4C428F6FEDA0065D83E /* PersistenceEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793D4C328F6FEDA0065D83E /* PersistenceEmoji.swift */; };
+		C793D4C428F6FEDA0065D83E /* PersistenceEmojis.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793D4C328F6FEDA0065D83E /* PersistenceEmojis.swift */; };
 		C79C38E228EEE408002FA1F3 /* AvatarApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79C38E128EEE408002FA1F3 /* AvatarApi.swift */; };
 		C79C38E828EF1529002FA1F3 /* EmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79C38E728EF1529002FA1F3 /* EmojiService.swift */; };
 		C79C38EA28EF36CD002FA1F3 /* MockedEmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79C38E928EF36CD002FA1F3 /* MockedEmojiService.swift */; };
@@ -79,7 +79,7 @@
 /* Begin PBXFileReference section */
 		C73C6DA828F83E3600B17433 /* ActivityIndicator+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityIndicator+View.swift"; sourceTree = "<group>"; };
 		C73C6DAA28F85C5300B17433 /* PersistenceAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceAvatar.swift; sourceTree = "<group>"; };
-		C793D4C328F6FEDA0065D83E /* PersistenceEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceEmoji.swift; sourceTree = "<group>"; };
+		C793D4C328F6FEDA0065D83E /* PersistenceEmojis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceEmojis.swift; sourceTree = "<group>"; };
 		C79C38E128EEE408002FA1F3 /* AvatarApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarApi.swift; sourceTree = "<group>"; };
 		C79C38E728EF1529002FA1F3 /* EmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiService.swift; sourceTree = "<group>"; };
 		C79C38E928EF36CD002FA1F3 /* MockedEmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedEmojiService.swift; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 		C793D4C228F6FE7F0065D83E /* PersistenceDc */ = {
 			isa = PBXGroup;
 			children = (
-				C793D4C328F6FEDA0065D83E /* PersistenceEmoji.swift */,
+				C793D4C328F6FEDA0065D83E /* PersistenceEmojis.swift */,
 				C7A091C528F86CB00045EC13 /* Database.xcdatamodeld */,
 				C73C6DAA28F85C5300B17433 /* PersistenceAvatar.swift */,
 				C7A091D0290153DF0045EC13 /* PersistenceAppleRepos.swift */,
@@ -173,6 +173,7 @@
 		C79C38E328EEEF53002FA1F3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				C793D4C228F6FE7F0065D83E /* PersistenceDc */,
 				C79C38E528EEEFE4002FA1F3 /* Service */,
 				C79C38E428EEEFDB002FA1F3 /* Network */,
 			);
@@ -226,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				C7C9B5AB29127A30006890BA /* ViewModel */,
-				C793D4C228F6FE7F0065D83E /* PersistenceDc */,
 				C7A6A2A728F56BCE00E77D4F /* DesignSystem */,
 				C7A6A2A128F41BB900E77D4F /* Utilities */,
 				C7C9B5C029192DAD006890BA /* Presentation */,
@@ -515,7 +515,7 @@
 				C79C893C28E351E400600405 /* MainPageCoordinator.swift in Sources */,
 				C79C892F28E1FA4C00600405 /* SearchButtonViewController.swift in Sources */,
 				C7C9B5B429127AB3006890BA /* AppleReposViewModel.swift in Sources */,
-				C793D4C428F6FEDA0065D83E /* PersistenceEmoji.swift in Sources */,
+				C793D4C428F6FEDA0065D83E /* PersistenceEmojis.swift in Sources */,
 				C7C9F5A828EAF5D400F65BCF /* NetworkManager.swift in Sources */,
 				C79C38E228EEE408002FA1F3 /* AvatarApi.swift in Sources */,
 				C7C9F5AC28EC2E2300F65BCF /* Avatar.swift in Sources */,
