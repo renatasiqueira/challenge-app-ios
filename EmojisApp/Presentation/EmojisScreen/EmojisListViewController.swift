@@ -1,5 +1,7 @@
 import Foundation
 import UIKit
+//
+import RxSwift
 
 class EmojisListViewController: BaseGenericViewController<EmojisView> {
 
@@ -7,26 +9,7 @@ class EmojisListViewController: BaseGenericViewController<EmojisView> {
     var emojisList: [Emoji] = []
     var viewModel: EmojisViewModel?
 
-    public weak var delegate: SendBackDelegate?
-
-    private var collectionView: UICollectionView
-
-    init() {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 4
-
-        collectionView = .init(frame: .zero, collectionViewLayout: layout)
-
-        super.init(nibName: nil, bundle: nil)
-
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    weak var delegate: SendBackDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,17 +19,20 @@ class EmojisListViewController: BaseGenericViewController<EmojisView> {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel?.emojisList.bind(listener: { [weak self] arrayEmojis in
-            guard let arrayEmojis = arrayEmojis else {return}
-            self?.emojisList = arrayEmojis
-            DispatchQueue.main.async { [weak self] in
-                self?.genericView.collectionView.reloadData()
-            }
-        })
         viewModel?.getEmojis()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] emojisList in
+                guard let self = self else { return }
+                self.emojisList = emojisList
+                self.genericView.collectionView.reloadData()
+            }, onFailure: { error in
+                print("[Get emojis] - \(error)")
+            }, onDisposed: {
+                print("[Get emojis] - Disposed")
+            })
+            .disposed(by: disposeBag)
     }
-
-    override func viewDidDisappear(_ animated: Bool) {
+    deinit {
         self.delegate?.navigateToMainPage()
     }
 }
@@ -66,7 +52,13 @@ extension EmojisListViewController: UICollectionViewDataSource {
 
         let url = emojisList[indexPath.row].emojiUrl
 
-        cell.setUpCell(url: url)
+//        cell.setUpCell(url: url)
+
+        guard let viewModel = viewModel else { return UICollectionViewCell() }
+        viewModel.imageAtUrl(url: url)
+            .asOptional()
+            .subscribe(cell.imageView.rx.image)
+            .disposed(by: cell.reusableDisposeBag)
 
         return cell
     }

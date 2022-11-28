@@ -60,16 +60,14 @@ extension AvatarsListViewController: UICollectionViewDataSource, UICollectionVie
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        createDeleteAlert(at: indexPath.row)
+        let alert = genericView.createDeleteAlert { [weak self] in
+            guard let self = self else { return }
+            let avatar = self.avatarList[indexPath.row]
+            self.viewModel?.avatarService?.deleteAvatar(avatarToDelete: avatar)
         }
-//        let alert = genericView.createDeleteAlert { [weak self] in
-//            guard let self = self else { return }
-//            let avatar = self.avatarList[indexPath.row]
-//            self.viewModel?.avatarService?.deleteAvatar(avatarToDelete: avatar)
-//        }
-//
-//        self.present(alert, animated: true, completion: nil)
-//    }
+
+        self.present(alert, animated: true, completion: nil)
+    }
 
 }
 

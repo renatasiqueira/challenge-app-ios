@@ -1,10 +1,12 @@
 import Foundation
 import UIKit
+import RxSwift
 
 class ImageCollectionViewCell: UICollectionViewCell {
 
-    private var imageView: UIImageView
-    var dataTask: URLSessionDataTask?
+    let imageView: UIImageView
+    private var dataTask: URLSessionDataTask?
+    var reusableDisposeBag = DisposeBag()
 
     override init(frame: CGRect) {
         imageView = .init(frame: .zero)
@@ -16,10 +18,14 @@ class ImageCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func setUpCell(url: URL) {
-        dataTask = self.imageView.createDownloadDataTask(from: url)
-        dataTask?.resume()
+
+    func setUpCell(viewModel: EmojisViewModel) {
+
     }
+//    func setUpCell(url: URL) {
+//        dataTask = self.imageView.createDownloadDataTask(from: url)
+//        dataTask?.resume()
+//    }
 
     func setUpConstraints() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +45,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         dataTask?.cancel()
 
         imageView.image = nil
+        reusableDisposeBag = DisposeBag()
 
     }
 

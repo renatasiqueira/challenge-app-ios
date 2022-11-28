@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C7207B802934DC5500106847 /* Observable+asOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7207B7F2934DC5500106847 /* Observable+asOptional.swift */; };
 		C73C6DA928F83E3600B17433 /* ActivityIndicator+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C6DA828F83E3600B17433 /* ActivityIndicator+View.swift */; };
 		C73C6DAB28F85C5300B17433 /* PersistenceAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73C6DAA28F85C5300B17433 /* PersistenceAvatar.swift */; };
 		C793D4C428F6FEDA0065D83E /* PersistenceEmojis.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793D4C328F6FEDA0065D83E /* PersistenceEmojis.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C7207B7F2934DC5500106847 /* Observable+asOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+asOptional.swift"; sourceTree = "<group>"; };
 		C73C6DA828F83E3600B17433 /* ActivityIndicator+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityIndicator+View.swift"; sourceTree = "<group>"; };
 		C73C6DAA28F85C5300B17433 /* PersistenceAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceAvatar.swift; sourceTree = "<group>"; };
 		C793D4C328F6FEDA0065D83E /* PersistenceEmojis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceEmojis.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				C7A7C81E29084D5700EE08C5 /* UITableViewCell+ReusableView.swift */,
 				C7C845EE292D413900B0FC65 /* Constants.swift */,
 				C7C9B5B529127D3E006890BA /* Box.swift */,
+				C7207B7F2934DC5500106847 /* Observable+asOptional.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				C7A091CF290150C00045EC13 /* AppleRepos+Mock.swift in Sources */,
 				C7A6A2A928F56DD200E77D4F /* ColorProvider.swift in Sources */,
 				C79C893C28E351E400600405 /* MainPageCoordinator.swift in Sources */,
+				C7207B802934DC5500106847 /* Observable+asOptional.swift in Sources */,
 				C79C892F28E1FA4C00600405 /* SearchButtonViewController.swift in Sources */,
 				C7C9B5B429127AB3006890BA /* AppleReposViewModel.swift in Sources */,
 				C793D4C428F6FEDA0065D83E /* PersistenceEmojis.swift in Sources */,

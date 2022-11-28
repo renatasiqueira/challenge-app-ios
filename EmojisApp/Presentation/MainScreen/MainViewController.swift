@@ -1,6 +1,7 @@
 import UIKit
 import CoreData
 import Alamofire
+import RxSwift
 
 class MainViewController: BaseGenericViewController<MainView> {
 
