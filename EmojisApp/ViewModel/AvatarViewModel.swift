@@ -10,14 +10,13 @@ public class AvatarViewModel {
         guard let avatarService = avatarService else {
             return Single<[Avatar]>.error(ServiceError.cannotInstanciate)
         }
-        return avatarService.fetchAvatarData()
+        return avatarService.fetchAvatarList()
     }
 
     func deleteAvatar(avatar: Avatar) -> Completable {
         guard let avatarService = avatarService else {
-            return Completable.error(AvatarError.serviceNotAvailable)
+            return Completable.error(ServiceError.cannotInstanciate)
         }
-        return avatarService.deleteAvatar(avatarToDelete: avatar)
+        return avatarService.deleteAvatar(avatar)
     }
 }
-

@@ -3,7 +3,7 @@ import RxSwift
 
 class AvatarsListViewController: BaseGenericViewController<AvatarListView> {
 
-    public weak var delegate: SendBackDelegate?
+    weak var delegate: SendBackDelegate?
 
     var coordinator: Coordinator?
 
@@ -22,19 +22,11 @@ class AvatarsListViewController: BaseGenericViewController<AvatarListView> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        //        self.viewModel?.avatarList.bind(listener: { [weak self] avatars in
-        //            guard let self = self,
-        //                  let avatars = avatars else {return}
-        //            self.avatarList = avatars
-        //            DispatchQueue.main.async {
-        //                self.genericView.collectionView.reloadData()
-        //            }
-        //
-        //        })
         viewModel?.getAvatar()
-            .subscribe(onSucess: { [weak self] avatars in
+            .observe(on: MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] avatars in
                 guard let self = self else { return }
-                self.avatarsList = avatars
+                self.avatarList = avatars
             }, onFailure: { error in
                 print("Error to get Avatars: \(error)")
             }, onDisposed: {
@@ -67,14 +59,17 @@ extension AvatarsListViewController: UICollectionViewDataSource, UICollectionVie
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let alert = genericView.createDeleteAlert { [weak self] in
-            guard let self = self else { return }
-            let avatar = self.avatarList[indexPath.row]
-            self.viewModel?.avatarService?.deleteAvatar(avatarToDelete: avatar)
-        }
 
-        self.present(alert, animated: true, completion: nil)
-    }
+        createDeleteAlert(at: indexPath.row)
+        }
+//        let alert = genericView.createDeleteAlert { [weak self] in
+//            guard let self = self else { return }
+//            let avatar = self.avatarList[indexPath.row]
+//            self.viewModel?.avatarService?.deleteAvatar(avatarToDelete: avatar)
+//        }
+//
+//        self.present(alert, animated: true, completion: nil)
+//    }
 
 }
 
@@ -84,6 +79,7 @@ extension AvatarsListViewController: UICollectionViewDelegateFlowLayout {
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1.0, left: 8.0, bottom: 1.0, right: 8.0)
     }
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

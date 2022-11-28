@@ -18,7 +18,7 @@ class LiveEmojiService: EmojiService {
         self.persistence = PersistenceEmojis.init(persistentContainer: persistentContainer)
     }
 
-    func getEmojisList() -> Single<[Emoji]> {
+    func getEmojis() -> Single<[Emoji]> {
         return persistence.loadData()
             .flatMap({ fetchedEmojis in
                 if fetchedEmojis.isEmpty {
